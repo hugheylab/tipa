@@ -18,10 +18,10 @@ tipaPeriod = function(extremumTimes, switchTime=0) {
 
 #' Calculate the phase shift induced by a stimulus during a circadian time-course.
 #'
-#' \code{tipa} calculates the phase shift based on the times of a phase reference point
-#' (e.g., peak in bioluminescence) and the time of the stimulus. \code{tipa} accounts
-#' for possible period changes and for the stage of the circadian cycle at which the stimulus
-#' occurs, as described in \url{https://hugheylab.org/papers}.
+#' `tipa` calculates the phase shift based on the times of a phase reference point
+#' (e.g., peak in bioluminescence) and the time of the stimulus. `tipa` accounts
+#' for possible period changes and for the stage of the circadian cycle at which the
+#' stimulus occured, as described in \url{https://hugheylab.org/papers}.
 #'
 #' @param extremumTimes Vector of times of the chosen phase reference point.
 #' @param switchTime Number corresponding to the time of the stimulus.
