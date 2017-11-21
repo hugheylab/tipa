@@ -26,8 +26,8 @@ indicate a delay, positive values an advance.}
 \description{
 \code{tipa} calculates the phase shift based on the times of a phase reference point
 (e.g., peak in bioluminescence) and the time of the stimulus. \code{tipa} accounts
-for possible period changes and for the stage of the circadian cycle at which the stimulus
-occurs, as described in \url{https://hugheylab.org/papers}.
+for possible period changes and for the stage of the circadian cycle at which the
+stimulus occured, as described in \url{https://hugheylab.org/papers}.
 }
 \examples{
 # Peak times of bioluminescence (in hours)
@@ -51,11 +51,11 @@ switchDf = read.csv(switchFile, stringsAsFactors=FALSE)
 
 resultList = lapply(switchDf$expId, function(ii) {
    tipa(extrDf$extremumTime[extrDf$expId==ii],
-   switchDf$switchTime[switchDf$expId==ii])
+        switchDf$switchTime[switchDf$expId==ii])
 })
 
 deltaPhiVec = sapply(resultList, function(r) r$deltaPhi)
 
 write.csv(data.frame(expId = switchDf$expId, deltaPhi = deltaPhiVec),
-	  'tipa_phase_shifts.csv', quote=FALSE, row.names=FALSE)
+          'tipa_phase_shifts.csv', quote=FALSE, row.names=FALSE)
 }

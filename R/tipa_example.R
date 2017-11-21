@@ -19,10 +19,10 @@ switchDf = read.csv(switchFile, stringsAsFactors=FALSE)
 
 resultList = lapply(switchDf$expId, function(ii) {
    tipa(extrDf$extremumTime[extrDf$expId==ii],
-   switchDf$switchTime[switchDf$expId==ii])
+        switchDf$switchTime[switchDf$expId==ii])
 })
 
 deltaPhiVec = sapply(resultList, function(r) r$deltaPhi)
 
 write.csv(data.frame(expId = switchDf$expId, deltaPhi = deltaPhiVec),
-	  'tipa_phase_shifts.csv', quote=FALSE, row.names=FALSE)
+          'tipa_phase_shifts.csv', quote=FALSE, row.names=FALSE)
