@@ -17,8 +17,9 @@ docker pull hugheylab/hugheyverse
 ```
 
 ## Getting started
-See the example in the documentation:
+See the examples in the documentation:
 ```R
 library('tipa')
-?tipa
+?tipaPhaseRef
+?tipaCosinor
 ```
