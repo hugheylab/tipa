@@ -60,22 +60,26 @@ tipaPhaseRef = function(phaseRefTimes, switchTime, switchDuration=0, period=NULL
 	list(phaseShift = phaseShift, epochInfo = epochInfo)}
 
 
-cosinor = function(time, y, per) {
-	df = data.frame(y = y, timeCos = cos(2*pi*time/per), timeSin = sin(2*pi*time/per))
-	stats::lm(y ~ timeCos + timeSin, data=df)}
+cosinor = function(time, y, per, trend) {
+	df = data.frame(y = y, time = time, timeCos = cos(2*pi*time/per), timeSin = sin(2*pi*time/per))
+	if (trend) {
+		stats::lm(y ~ timeCos + timeSin + splines::ns(time, df=4), data=df)
+		# mgcv::gam(y ~ timeCos + timeSin + s(time, k=5, bs='cs'), data=df, method='REML')
+	} else {
+		stats::lm(y ~ timeCos + timeSin, data=df)}}
 
 
-cosinorCost = function(time, y, per) {
-	fit = cosinor(time, y, per)
+cosinorCost = function(time, y, per, trend) {
+	fit = cosinor(time, y, per, trend)
 	mean(fit$residuals^2)}
 
 
-fitCosinor = function(time, y, periodGuess=24) {#, nKnotsTrend=3) {
-	optimFit = optimr::optimr(c(p=periodGuess), fn=function(p) cosinorCost(time, y, p),
+fitCosinor = function(time, y, periodGuess=24, trend=TRUE) {
+	optimFit = optimr::optimr(c(p=periodGuess), fn=function(p) cosinorCost(time, y, p, trend),
 									  lower=0, method='L-BFGS-B')
 	period = optimFit$par[['p']]
-	cosinorFit = cosinor(time, y, period)
-	rmsError = sqrt(cosinorCost(time, y, period))
+	cosinorFit = cosinor(time, y, period, trend)
+	rmsError = sqrt(cosinorCost(time, y, period, trend))
 	phaseRad = atan2(stats::coef(cosinorFit)[['timeSin']], stats::coef(cosinorFit)[['timeCos']])
 	data.frame(period = period, phaseRad = phaseRad, rmsError = rmsError)}
 
@@ -96,6 +100,10 @@ fitCosinor = function(time, y, periodGuess=24) {#, nKnotsTrend=3) {
 #' `switchTime` and `switchTime + switchDuration` will be ignored.
 #' @param periodGuess Approximate period of the oscillations (in the same units used
 #' in `time`), used as initial value in fitting the sine curves.
+#' @param trend Model a long-term trend in the cosinor fit for each epoch. Uses a
+#' natural cubic spline with 4 degrees of freedom. It is strongly recommended to keep
+#' as `TRUE`. If set to `FALSE`, the function may give an error or give completely
+#' invalid results.
 #' @param shortcut Calculate phase shift using the standard TIPA procedure or using a
 #' shortcut based on the phases of the sine curve fits. The two methods give exactly
 #' the same result.
@@ -114,13 +122,13 @@ fitCosinor = function(time, y, periodGuess=24) {#, nKnotsTrend=3) {
 #' @seealso `\link{tipaPhaseRef}`
 #'
 #' @export
-tipaCosinor = function(time, y, switchTime, switchDuration=0, periodGuess=24, shortcut=TRUE) {
+tipaCosinor = function(time, y, switchTime, switchDuration=0, periodGuess=24, trend=TRUE, shortcut=TRUE) {
 	postTime = switchTime + switchDuration
 
-	fitPre = fitCosinor(time[time < switchTime], y[time < switchTime], periodGuess)
+	fitPre = fitCosinor(time[time < switchTime], y[time < switchTime], periodGuess, trend)
 	fitPre = data.frame(epoch = 'pre', fitPre, stringsAsFactors=FALSE)
 
-	fitPost = fitCosinor(time[time > postTime], y[time > postTime], periodGuess)
+	fitPost = fitCosinor(time[time > postTime], y[time > postTime], periodGuess, trend)
 	fitPost = data.frame(epoch = 'post', fitPost, stringsAsFactors=FALSE)
 
 	if (shortcut) {
@@ -129,7 +137,7 @@ tipaCosinor = function(time, y, switchTime, switchDuration=0, periodGuess=24, sh
 	} else {
 		# find last peak time before switchTime
 		tPreLast = stats::optimize(function(tt) -cos(tt*2*pi/fitPre$period - fitPre$phaseRad),
-								  interval = c(switchTime - fitPre$period*1.1, switchTime))$minimum
+											interval = c(switchTime - fitPre$period*1.1, switchTime))$minimum
 		if (tPreLast + fitPre$period < switchTime) {
 			tPreLast = tPreLast + fitPre$period}
 
@@ -138,7 +146,7 @@ tipaCosinor = function(time, y, switchTime, switchDuration=0, periodGuess=24, sh
 
 		# find first peak time after postTime
 		tPostObs = stats::optimize(function(tt) -cos(tt*2*pi/fitPost$period - fitPost$phaseRad),
-								  interval = c(postTime, postTime + fitPost$period*1.1))$minimum
+											interval = c(postTime, postTime + fitPost$period*1.1))$minimum
 
 		# find expected time of first fit peak after switchTime (ok even if non-zero transients)
 		tPostExpect = switchTime + fitPost$period * fracCycleRem

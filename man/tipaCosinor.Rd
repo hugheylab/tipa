@@ -5,7 +5,7 @@
 \title{Calculate the phase shift induced by a stimulus during a circadian time-course.}
 \usage{
 tipaCosinor(time, y, switchTime, switchDuration = 0, periodGuess = 24,
-  shortcut = TRUE)
+  trend = TRUE, shortcut = TRUE)
 }
 \arguments{
 \item{time}{Vector of time values for the full time-course.}
@@ -19,6 +19,11 @@ tipaCosinor(time, y, switchTime, switchDuration = 0, periodGuess = 24,
 
 \item{periodGuess}{Approximate period of the oscillations (in the same units used
 in \code{time}), used as initial value in fitting the sine curves.}
+
+\item{trend}{Model a long-term trend in the cosinor fit for each epoch. Uses a
+natural cubic spline with 4 degrees of freedom. It is strongly recommended to keep
+as \code{TRUE}. If set to \code{FALSE}, the function may give an error or give completely
+invalid results.}
 
 \item{shortcut}{Calculate phase shift using the standard TIPA procedure or using a
 shortcut based on the phases of the sine curve fits. The two methods give exactly
