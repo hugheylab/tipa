@@ -4,15 +4,15 @@
 \alias{tipaPhaseRef}
 \title{Calculate the phase shift induced by a stimulus during a circadian time-course.}
 \usage{
-tipaPhaseRef(phaseRefTimes, switchTime, switchDuration = 0, period = NULL)
+tipaPhaseRef(phaseRefTimes, stimOnset, stimDuration = 0, period = NULL)
 }
 \arguments{
 \item{phaseRefTimes}{Vector of times of the chosen phase reference point.}
 
-\item{switchTime}{Time at which the stimulus started.}
+\item{stimOnset}{Time at which the stimulus started.}
 
-\item{switchDuration}{Duration of the stimulus and any transients. Data between
-\code{switchTime} and \code{switchTime + switchDuration} will be ignored.}
+\item{stimDuration}{Duration of the stimulus and any transients. Data between
+\code{stimOnset} and \code{stimOnset + stimDuration} will be ignored.}
 
 \item{period}{Optional list with elements "pre" and "post" corresponding to the period of
 the oscillations prior to and subsequent to the stimulus. If not supplied, the periods
@@ -36,28 +36,28 @@ are approximately sinusoidal, it is recommended to instead use \code{\link{tipaC
 # Peak times of bioluminescence (in hours)
 phaseRefTimes = c(-75.5, -51.5, -27.4, -3.8,
 		  20.5, 42.4, 65.5, 88.0)
-result = tipaPhaseRef(phaseRefTimes, switchTime=0)
+result = tipaPhaseRef(phaseRefTimes, stimOnset=0)
 result
 
 # Data from multiple (simulated) experiments
 extrFile = system.file('extdata', 'phaseRefTimes.csv', package='tipa')
-switchFile = system.file('extdata', 'switchTimes.csv', package='tipa')
+stimFile = system.file('extdata', 'stimOnsets.csv', package='tipa')
 
 file.show(extrFile)
-file.show(switchFile)
+file.show(stimFile)
 
 extrDf = read.csv(extrFile, stringsAsFactors=FALSE)
-switchDf = read.csv(switchFile, stringsAsFactors=FALSE)
+stimDf = read.csv(stimFile, stringsAsFactors=FALSE)
 
-resultList = lapply(switchDf$expId, function(ii) {
+resultList = lapply(stimDf$expId, function(ii) {
 	phaseRefTimes = extrDf$phaseRefTime[extrDf$expId==ii]
-	switchTime = switchDf$switchTime[switchDf$expId==ii]
-   tipaPhaseRef(phaseRefTimes, switchTime)
+	stimOnset = stimDf$stimOnset[stimDf$expId==ii]
+   tipaPhaseRef(phaseRefTimes, stimOnset)
 })
 
 phaseShifts = sapply(resultList, function(r) r$phaseShift)
 
-write.csv(data.frame(expId = switchDf$expId, phaseShift = phaseShifts),
+write.csv(data.frame(expId = stimDf$expId, phaseShift = phaseShifts),
           'tipa_phaseref.csv', quote=FALSE, row.names=FALSE)
 }
 \seealso{

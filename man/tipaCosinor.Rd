@@ -4,7 +4,7 @@
 \alias{tipaCosinor}
 \title{Calculate the phase shift induced by a stimulus during a circadian time-course.}
 \usage{
-tipaCosinor(time, y, switchTime, switchDuration = 0, periodGuess = 24,
+tipaCosinor(time, y, stimOnset, stimDuration = 0, periodGuess = 24,
   trend = TRUE, shortcut = TRUE)
 }
 \arguments{
@@ -12,10 +12,10 @@ tipaCosinor(time, y, switchTime, switchDuration = 0, periodGuess = 24,
 
 \item{y}{Vector of measurements (e.g., bioluminescence) for the full time-course.}
 
-\item{switchTime}{Time at which the stimulus started.}
+\item{stimOnset}{Time at which the stimulus started.}
 
-\item{switchDuration}{Duration of the stimulus and any transients. Data between
-\code{switchTime} and \code{switchTime + switchDuration} will be ignored.}
+\item{stimDuration}{Duration of the stimulus and any transients. Data between
+\code{stimOnset} and \code{stimOnset + stimDuration} will be ignored.}
 
 \item{periodGuess}{Approximate period of the oscillations (in the same units used
 in \code{time}), used as initial value in fitting the sine curves.}
@@ -35,7 +35,7 @@ A list.
 correspond to a delay, positive values an advance.}
 \item{epochInfo}{Dataframe containing information about the sine curve fits for each epoch:
 period (in the same units used in \code{time}), phase (in radians), and root mean square error
-(in the same units used in \code{y}). If the RMS errors pre-stimulus and post-stimulus are
+(in the same units as \code{y}). If the RMS errors pre-stimulus and post-stimulus are
 substantially different, then the stimulus may have induced a change in the waveform and thus
 phase shift estimates may be invalid.}
 }
@@ -55,8 +55,8 @@ df = read.csv(timecourseFile, stringsAsFactors=FALSE)
 
 resultList = lapply(sort(unique(df$expId)), function(ii) {
 	time = df$time[df$expId==ii]
-	y = df$y[df$expId==ii]
-   tipaCosinor(time, y, switchTime=0)
+	y = df$intensity[df$expId==ii]
+   tipaCosinor(time, y, stimOnset=0)
 })
 
 phaseShifts = sapply(resultList, function(r) r$phaseShift)

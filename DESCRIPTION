@@ -1,6 +1,6 @@
 Package: tipa
-Title: Tau-independent Phase Analysis for Circadian Time-courses
-Version: 0.0.0.9002
+Title: Tau-independent phase analysis for circadian time-courses
+Version: 0.0.0.9003
 Authors@R: person("Jake", "Hughey", email = "jakejhughey@gmail.com", role = c("aut", "cre"))
 Description: tipa accurately estimates phase shifts by accounting for period changes and for
     the point in the circadian cycle at which the stimulus occurs.
