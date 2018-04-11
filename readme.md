@@ -1,15 +1,7 @@
 # tipa
 `tipa` is a package for accurately calculating phase shifts in circadian time-course data. `tipa` accounts for period changes and for the point in the circadian cycle at which the stimulus occurs.
 
-For details about the method and to see how we benchmarked it using simulations, check out [Tackenberg et al. ()]() and the [accompanying results]().
-
-## Install using drat
-```R
-install.packages('drat')
-drat::addRepo('hugheylab')
-install.packages('tipa', type='source')
-```
-You can update the package with `drat::addRepo('hugheylab')`, then `update.packages()`.
+For details about the method and to see how we benchmarked it using simulations, check out [Tackenberg et al. (2018)](https://doi.org/10.1177/0748730418768116) and the [accompanying results](https://doi.org/10.6084/m9.figshare.5484916).
 
 ## Install using devtools
 ```R
