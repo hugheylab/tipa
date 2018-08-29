@@ -1,2 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^tipa_cosinor\.csv$
+^tipa_phaseref\.csv$
+^tipa_simulations\.R$

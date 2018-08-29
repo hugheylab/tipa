@@ -1,26 +1,26 @@
 # Peak times of bioluminescence (in hours)
 phaseRefTimes = c(-75.5, -51.5, -27.4, -3.8,
 		  20.5, 42.4, 65.5, 88.0)
-result = tipaPhaseRef(phaseRefTimes, stimOnset=0)
+result = tipaPhaseRef(phaseRefTimes, stimOnset = 0)
 result
 
 # Data from multiple (simulated) experiments
-extrFile = system.file('extdata', 'phaseRefTimes.csv', package='tipa')
-stimFile = system.file('extdata', 'stimOnsets.csv', package='tipa')
+extrFile = system.file('extdata', 'phaseRefTimes.csv', package = 'tipa')
+stimFile = system.file('extdata', 'stimOnsets.csv', package = 'tipa')
 
 file.show(extrFile)
 file.show(stimFile)
 
-extrDf = read.csv(extrFile, stringsAsFactors=FALSE)
-stimDf = read.csv(stimFile, stringsAsFactors=FALSE)
+extrDf = read.csv(extrFile, stringsAsFactors = FALSE)
+stimDf = read.csv(stimFile, stringsAsFactors = FALSE)
 
 resultList = lapply(stimDf$expId, function(ii) {
-	phaseRefTimes = extrDf$phaseRefTime[extrDf$expId==ii]
-	stimOnset = stimDf$stimOnset[stimDf$expId==ii]
+	phaseRefTimes = extrDf$phaseRefTime[extrDf$expId == ii]
+	stimOnset = stimDf$stimOnset[stimDf$expId == ii]
    tipaPhaseRef(phaseRefTimes, stimOnset)
 })
 
 phaseShifts = sapply(resultList, function(r) r$phaseShift)
 
 write.csv(data.frame(expId = stimDf$expId, phaseShift = phaseShifts),
-          'tipa_phaseref.csv', quote=FALSE, row.names=FALSE)
+          'tipa_phaseref.csv', quote = FALSE, row.names = FALSE)

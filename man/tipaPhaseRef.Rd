@@ -2,7 +2,8 @@
 % Please edit documentation in R/tipa.R
 \name{tipaPhaseRef}
 \alias{tipaPhaseRef}
-\title{Calculate the phase shift induced by a stimulus during a circadian time-course.}
+\title{Calculate the phase shift induced by a stimulus during a circadian
+time-course.}
 \usage{
 tipaPhaseRef(phaseRefTimes, stimOnset, stimDuration = 0, period = NULL)
 }
@@ -14,11 +15,11 @@ tipaPhaseRef(phaseRefTimes, stimOnset, stimDuration = 0, period = NULL)
 \item{stimDuration}{Duration of the stimulus and any transients. Data between
 \code{stimOnset} and \code{stimOnset + stimDuration} will be ignored.}
 
-\item{period}{Optional list with elements "pre" and "post" corresponding to the period of
-the oscillations prior to and subsequent to the stimulus. If not supplied, the periods
-for pre- and post-stimulus are calculated as the mean time between occurrences of the
-phase reference point within the respective epoch. It is recommended to not use this
-argument.}
+\item{period}{Optional list with elements "pre" and "post" corresponding to
+the period of the oscillations prior to and subsequent to the stimulus. If
+not supplied, the periods for pre- and post-stimulus are calculated as the
+mean time between occurrences of the phase reference point within the
+respective epoch. It is recommended to not use this argument.}
 }
 \value{
 A list.
@@ -27,38 +28,39 @@ indicate a delay, positive values an advance.}
 \item{epochInfo}{Dataframe containing estimated period for each epoch.}
 }
 \description{
-\code{tipaPhaseRef} calculates the phase shift based on the times of a phase reference point
-(e.g., onset of activity), accounting for possible period changes and for the point in
-the circadian cycle at which the stimulus occurred. If the rhythms of the measurement
-are approximately sinusoidal, it is recommended to instead use \code{\link{tipaCosinor}}.
+\code{tipaPhaseRef} calculates the phase shift based on the times of a phase
+reference point (e.g., onset of activity), accounting for possible period
+changes and for the point in the circadian cycle at which the stimulus
+occurred. If the rhythms of the measurement are approximately sinusoidal, it
+is recommended to instead use \code{\link{tipaCosinor}}.
 }
 \examples{
 # Peak times of bioluminescence (in hours)
 phaseRefTimes = c(-75.5, -51.5, -27.4, -3.8,
 		  20.5, 42.4, 65.5, 88.0)
-result = tipaPhaseRef(phaseRefTimes, stimOnset=0)
+result = tipaPhaseRef(phaseRefTimes, stimOnset = 0)
 result
 
 # Data from multiple (simulated) experiments
-extrFile = system.file('extdata', 'phaseRefTimes.csv', package='tipa')
-stimFile = system.file('extdata', 'stimOnsets.csv', package='tipa')
+extrFile = system.file('extdata', 'phaseRefTimes.csv', package = 'tipa')
+stimFile = system.file('extdata', 'stimOnsets.csv', package = 'tipa')
 
 file.show(extrFile)
 file.show(stimFile)
 
-extrDf = read.csv(extrFile, stringsAsFactors=FALSE)
-stimDf = read.csv(stimFile, stringsAsFactors=FALSE)
+extrDf = read.csv(extrFile, stringsAsFactors = FALSE)
+stimDf = read.csv(stimFile, stringsAsFactors = FALSE)
 
 resultList = lapply(stimDf$expId, function(ii) {
-	phaseRefTimes = extrDf$phaseRefTime[extrDf$expId==ii]
-	stimOnset = stimDf$stimOnset[stimDf$expId==ii]
+	phaseRefTimes = extrDf$phaseRefTime[extrDf$expId == ii]
+	stimOnset = stimDf$stimOnset[stimDf$expId == ii]
    tipaPhaseRef(phaseRefTimes, stimOnset)
 })
 
 phaseShifts = sapply(resultList, function(r) r$phaseShift)
 
 write.csv(data.frame(expId = stimDf$expId, phaseShift = phaseShifts),
-          'tipa_phaseref.csv', quote=FALSE, row.names=FALSE)
+          'tipa_phaseref.csv', quote = FALSE, row.names = FALSE)
 }
 \seealso{
 \code{\link{tipaCosinor}}
