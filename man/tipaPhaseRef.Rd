@@ -39,14 +39,10 @@ is recommended to instead use \code{\link{tipaCosinor}}.
 phaseRefTimes = c(-75.5, -51.5, -27.4, -3.8,
 		  20.5, 42.4, 65.5, 88.0)
 result = tipaPhaseRef(phaseRefTimes, stimOnset = 0)
-result
 
 # Data from multiple (simulated) experiments
 extrFile = system.file('extdata', 'phaseRefTimes.csv', package = 'tipa')
 stimFile = system.file('extdata', 'stimOnsets.csv', package = 'tipa')
-
-file.show(extrFile)
-file.show(stimFile)
 
 extrDf = read.csv(extrFile, stringsAsFactors = FALSE)
 stimDf = read.csv(stimFile, stringsAsFactors = FALSE)

@@ -1,6 +1,5 @@
 # Time-course data from multiple (simulated) experiments
 timecourseFile = system.file('extdata', 'timecourses.csv', package = 'tipa')
-file.show(timecourseFile)
 df = read.csv(timecourseFile, stringsAsFactors = FALSE)
 
 resultList = lapply(sort(unique(df$expId)), function(ii) {
