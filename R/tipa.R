@@ -1,11 +1,12 @@
-circMean = function(a, maxVal=1, na.rm=TRUE, forcePos=FALSE) {
-  x = cos(a / maxVal * 2 * pi)
-  y = sin(a / maxVal * 2 * pi)
-  m = atan2(sum(y, na.rm=na.rm), sum(x, na.rm=na.rm)) / 2 / pi
+circMean = function(a, period = 1, na.rm = TRUE, forcePos = FALSE) {
+  x = cos(a / period * 2 * pi)
+  y = sin(a / period * 2 * pi)
+  m = atan2(sum(y, na.rm = na.rm), sum(x, na.rm = na.rm)) / 2 / pi
   if (forcePos) {
-    ifelse(m < 0, m + 1, m) * maxVal
+    m = ifelse(m < 0, m + 1, m) * period
   } else {
-    m * maxVal}}
+    m = m * period}
+  return(m)}
 
 
 tipaPeriod = function(phaseRefTimes, stimOnset=0, stimDuration=0) {
@@ -13,7 +14,7 @@ tipaPeriod = function(phaseRefTimes, stimOnset=0, stimDuration=0) {
   periodPre = (max(tPre) - min(tPre)) / (length(tPre) - 1)
   tPost = phaseRefTimes[phaseRefTimes > stimOnset + stimDuration]
   periodPost = (max(tPost) - min(tPost)) / (length(tPost) - 1)
-  list(pre = periodPre, post = periodPost)}
+  return(list(pre = periodPre, post = periodPost))}
 
 
 #' Calculate the phase shift induced by a stimulus during a circadian
@@ -45,7 +46,7 @@ tipaPeriod = function(phaseRefTimes, stimOnset=0, stimDuration=0) {
 #' @seealso `\link{tipaCosinor}`
 #'
 #' @export
-tipaPhaseRef = function(phaseRefTimes, stimOnset, stimDuration=0, period=NULL) {
+tipaPhaseRef = function(phaseRefTimes, stimOnset, stimDuration = 0, period = NULL) {
   phaseRefTimes = sort(phaseRefTimes)
   stimAnchor = stimOnset + 0.5 * stimDuration
 
@@ -59,24 +60,26 @@ tipaPhaseRef = function(phaseRefTimes, stimOnset, stimDuration=0, period=NULL) {
   tPostExpect = stimAnchor + period$post * (fracCycleRem + 0:(length(tPost)-1))
   tPostResid = tPostExpect - tPost
 
-  phaseShift = circMean(tPostResid, maxVal=period$post) * 24 / period$post
+  phaseShift = circMean(tPostResid, period = period$post) * 24 / period$post
   epochInfo = data.frame(epoch = names(period), period = unname(unlist(period)),
                          stringsAsFactors = FALSE)
-  list(phaseShift = phaseShift, epochInfo = epochInfo)}
+  return(list(phaseShift = phaseShift, epochInfo = epochInfo))}
 
 
 cosinor = function(time, y, per, trend) {
   df = data.frame(y = y, time = time, timeCos = cos(2*pi*time/per),
                   timeSin = sin(2*pi*time/per))
   if (trend) {
-    stats::lm(y ~ timeCos + timeSin + splines::ns(time, df = 4), data = df)
+    fit = stats::lm(y ~ timeCos + timeSin + splines::ns(time, df = 4), data = df)
   } else {
-    stats::lm(y ~ timeCos + timeSin, data = df)}}
+    fit = stats::lm(y ~ timeCos + timeSin, data = df)}
+  return(fit)}
 
 
 cosinorCost = function(time, y, per, trend) {
   fit = cosinor(time, y, per, trend)
-  mean(fit$residuals^2)}
+  cost = mean(fit$residuals^2)
+  return(cost)}
 
 
 fitCosinor = function(time, y, periodGuess = 24, trend = TRUE) {
@@ -137,12 +140,10 @@ tipaCosinor = function(time, y, stimOnset, stimDuration = 0, periodGuess = 24,
                        trend = TRUE, shortcut = TRUE) {
   stimOffset = stimOnset + stimDuration
 
-  fitPre = fitCosinor(time[time < stimOnset], y[time < stimOnset],
-                      periodGuess, trend)
+  fitPre = fitCosinor(time[time < stimOnset], y[time < stimOnset], periodGuess, trend)
   fitPre = data.frame(epoch = 'pre', fitPre, stringsAsFactors = FALSE)
 
-  fitPost = fitCosinor(time[time > stimOffset], y[time > stimOffset],
-                       periodGuess, trend)
+  fitPost = fitCosinor(time[time > stimOffset], y[time > stimOffset], periodGuess, trend)
   fitPost = data.frame(epoch = 'post', fitPost, stringsAsFactors = FALSE)
 
   if (shortcut) {
@@ -150,8 +151,8 @@ tipaCosinor = function(time, y, stimOnset, stimDuration = 0, periodGuess = 24,
     phaseShift = phaseShift - 24 * (phaseShift > 12) + 24 * (phaseShift < (-12))
   } else {
     # find last peak time before stimOnset
-    tPreLast = stats::optimize(function(tt) -cos(tt*2*pi/fitPre$period - fitPre$phaseRad),
-                               interval = c(stimOnset - fitPre$period*1.1, stimOnset))$minimum
+    tPreLast = stats::optimize(function(tt) -cos(tt * 2 * pi / fitPre$period - fitPre$phaseRad),
+                               interval = c(stimOnset - fitPre$period * 1.1, stimOnset))$minimum
     if (tPreLast + fitPre$period < stimOnset) {
       tPreLast = tPreLast + fitPre$period}
 
@@ -159,17 +160,17 @@ tipaCosinor = function(time, y, stimOnset, stimDuration = 0, periodGuess = 24,
     fracCycleRem = 1 - (stimOnset - tPreLast) / fitPre$period
 
     # find first peak time after stimOffset
-    tPostObs = stats::optimize(function(tt) -cos(tt*2*pi/fitPost$period - fitPost$phaseRad),
-                               interval = c(stimOffset, stimOffset + fitPost$period*1.1))$minimum
+    tPostObs = stats::optimize(function(tt) -cos(tt * 2 * pi/fitPost$period - fitPost$phaseRad),
+                               interval = c(stimOffset, stimOffset + fitPost$period * 1.1))$minimum
 
     # find expected time of first fit peak after stimOnset
     # (ok even if non-zero transients)
     tPostExpect = stimOnset + fitPost$period * fracCycleRem
 
     # circular mean of residual, using post period as reference
-    phaseShift = circMean(tPostExpect - tPostObs, maxVal = fitPost$period)
+    phaseShift = circMean(tPostExpect - tPostObs, period = fitPost$period)
 
     # convert phase shift to circadian hours
     phaseShift = phaseShift * 24 / fitPost$period}
 
-  list(phaseShift = phaseShift, epochInfo = rbind(fitPre, fitPost))}
+  return(list(phaseShift = phaseShift, epochInfo = rbind(fitPre, fitPost)))}
