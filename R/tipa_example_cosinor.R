@@ -1,6 +1,6 @@
 # Time-course data from multiple (simulated) experiments
-timecourseFile = system.file('extdata', 'timecourses.csv', package = 'tipa')
-df = read.csv(timecourseFile, stringsAsFactors = FALSE)
+getTimecourseFile = function() system.file('extdata', 'timecourses.csv', package = 'tipa')
+df = read.csv(getTimecourseFile(), stringsAsFactors = FALSE)
 
 resultList = lapply(sort(unique(df$expId)), function(ii) {
 	time = df$time[df$expId == ii]

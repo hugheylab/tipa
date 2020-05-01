@@ -5,8 +5,15 @@
 \title{Calculate the phase shift induced by a stimulus during a circadian
 time-course.}
 \usage{
-tipaCosinor(time, y, stimOnset, stimDuration = 0, periodGuess = 24,
-  trend = TRUE, shortcut = TRUE)
+tipaCosinor(
+  time,
+  y,
+  stimOnset,
+  stimDuration = 0,
+  periodGuess = 24,
+  trend = TRUE,
+  shortcut = TRUE
+)
 }
 \arguments{
 \item{time}{Vector of time values for the full time-course.}
@@ -49,12 +56,12 @@ changes and for the point in the circadian cycle at which the stimulus
 occurred. This function will work best for measurements whose rhythms are
 approximately sinusoidal, or at least smoothly increasing and decreasing. If
 your data are not sinusoidal, you can first define the phase reference points
-and then use \code{\link{tipaPhaseRef}}.
+and then use \verb{[tipaPhaseRef()]}.
 }
 \examples{
 # Time-course data from multiple (simulated) experiments
-timecourseFile = system.file('extdata', 'timecourses.csv', package = 'tipa')
-df = read.csv(timecourseFile, stringsAsFactors = FALSE)
+getTimecourseFile = function() system.file('extdata', 'timecourses.csv', package = 'tipa')
+df = read.csv(getTimecourseFile(), stringsAsFactors = FALSE)
 
 resultList = lapply(sort(unique(df$expId)), function(ii) {
 	time = df$time[df$expId == ii]
@@ -68,5 +75,5 @@ write.csv(data.frame(expId = sort(unique(df$expId)), phaseShift = phaseShifts),
           'tipa_cosinor.csv', quote = FALSE, row.names = FALSE)
 }
 \seealso{
-\code{\link{tipaPhaseRef}}
+\verb{[tipaPhaseRef()]}
 }

@@ -24,7 +24,7 @@ tipaPeriod = function(phaseRefTimes, stimOnset=0, stimDuration=0) {
 #' reference point (e.g., onset of activity), accounting for possible period
 #' changes and for the point in the circadian cycle at which the stimulus
 #' occurred. If the rhythms of the measurement are approximately sinusoidal, it
-#' is recommended to instead use `\link{tipaCosinor}`.
+#' is recommended to instead use `[tipaCosinor()]`.
 #'
 #' @param phaseRefTimes Vector of times of the chosen phase reference point.
 #' @param stimOnset Time at which the stimulus started.
@@ -43,7 +43,7 @@ tipaPeriod = function(phaseRefTimes, stimOnset=0, stimDuration=0) {
 #'
 #' @example R/tipa_example_phaseref.R
 #'
-#' @seealso `\link{tipaCosinor}`
+#' @seealso `[tipaCosinor()]`
 #'
 #' @export
 tipaPhaseRef = function(phaseRefTimes, stimOnset, stimDuration = 0, period = NULL) {
@@ -103,7 +103,7 @@ fitCosinor = function(time, y, periodGuess = 24, trend = TRUE) {
 #' occurred. This function will work best for measurements whose rhythms are
 #' approximately sinusoidal, or at least smoothly increasing and decreasing. If
 #' your data are not sinusoidal, you can first define the phase reference points
-#' and then use `\link{tipaPhaseRef}`.
+#' and then use `[tipaPhaseRef()]`.
 #'
 #' @param time Vector of time values for the full time-course.
 #' @param y Vector of measurements (e.g., bioluminescence) for the full
@@ -133,7 +133,7 @@ fitCosinor = function(time, y, periodGuess = 24, trend = TRUE) {
 #'
 #' @example R/tipa_example_cosinor.R
 #'
-#' @seealso `\link{tipaPhaseRef}`
+#' @seealso `[tipaPhaseRef()]`
 #'
 #' @export
 tipaCosinor = function(time, y, stimOnset, stimDuration = 0, periodGuess = 24,

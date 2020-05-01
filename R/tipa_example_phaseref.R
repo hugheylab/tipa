@@ -4,11 +4,11 @@ phaseRefTimes = c(-75.5, -51.5, -27.4, -3.8,
 result = tipaPhaseRef(phaseRefTimes, stimOnset = 0)
 
 # Data from multiple (simulated) experiments
-extrFile = system.file('extdata', 'phaseRefTimes.csv', package = 'tipa')
-stimFile = system.file('extdata', 'stimOnsets.csv', package = 'tipa')
+getExtrFile = function() system.file('extdata', 'phaseRefTimes.csv', package = 'tipa')
+getStimFile = function() system.file('extdata', 'stimOnsets.csv', package = 'tipa')
 
-extrDf = read.csv(extrFile, stringsAsFactors = FALSE)
-stimDf = read.csv(stimFile, stringsAsFactors = FALSE)
+extrDf = read.csv(getExtrFile(), stringsAsFactors = FALSE)
+stimDf = read.csv(getStimFile(), stringsAsFactors = FALSE)
 
 resultList = lapply(stimDf$expId, function(ii) {
 	phaseRefTimes = extrDf$phaseRefTime[extrDf$expId == ii]

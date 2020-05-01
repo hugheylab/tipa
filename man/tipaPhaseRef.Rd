@@ -32,7 +32,7 @@ indicate a delay, positive values an advance.}
 reference point (e.g., onset of activity), accounting for possible period
 changes and for the point in the circadian cycle at which the stimulus
 occurred. If the rhythms of the measurement are approximately sinusoidal, it
-is recommended to instead use \code{\link{tipaCosinor}}.
+is recommended to instead use \verb{[tipaCosinor()]}.
 }
 \examples{
 # Peak times of bioluminescence (in hours)
@@ -41,11 +41,11 @@ phaseRefTimes = c(-75.5, -51.5, -27.4, -3.8,
 result = tipaPhaseRef(phaseRefTimes, stimOnset = 0)
 
 # Data from multiple (simulated) experiments
-extrFile = system.file('extdata', 'phaseRefTimes.csv', package = 'tipa')
-stimFile = system.file('extdata', 'stimOnsets.csv', package = 'tipa')
+getExtrFile = function() system.file('extdata', 'phaseRefTimes.csv', package = 'tipa')
+getStimFile = function() system.file('extdata', 'stimOnsets.csv', package = 'tipa')
 
-extrDf = read.csv(extrFile, stringsAsFactors = FALSE)
-stimDf = read.csv(stimFile, stringsAsFactors = FALSE)
+extrDf = read.csv(getExtrFile(), stringsAsFactors = FALSE)
+stimDf = read.csv(getStimFile(), stringsAsFactors = FALSE)
 
 resultList = lapply(stimDf$expId, function(ii) {
 	phaseRefTimes = extrDf$phaseRefTime[extrDf$expId == ii]
@@ -59,5 +59,5 @@ write.csv(data.frame(expId = stimDf$expId, phaseShift = phaseShifts),
           'tipa_phaseref.csv', quote = FALSE, row.names = FALSE)
 }
 \seealso{
-\code{\link{tipaCosinor}}
+\verb{[tipaCosinor()]}
 }
