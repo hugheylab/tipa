@@ -19,7 +19,7 @@ tipaPhaseRef(phaseRefTimes, stimOnset, stimDuration = 0, period = NULL)
 the period of the oscillations prior to and subsequent to the stimulus. If
 not supplied, the periods for pre- and post-stimulus are calculated as the
 mean time between occurrences of the phase reference point within the
-respective epoch. It is recommended to not use this argument.}
+respective epoch. Using this argument is not recommended.}
 }
 \value{
 A list.
@@ -32,26 +32,27 @@ indicate a delay, positive values an advance.}
 reference point (e.g., onset of activity), accounting for possible period
 changes and for the point in the circadian cycle at which the stimulus
 occurred. If the rhythms of the measurement are approximately sinusoidal, it
-is recommended to instead use \verb{[tipaCosinor()]}.
+is recommended to instead use \code{\link[=tipaCosinor]{tipaCosinor()}}.
 }
 \examples{
 # Peak times of bioluminescence (in hours)
 phaseRefTimes = c(-75.5, -51.5, -27.4, -3.8,
-		  20.5, 42.4, 65.5, 88.0)
+                  20.5, 42.4, 65.5, 88.0)
 result = tipaPhaseRef(phaseRefTimes, stimOnset = 0)
 
 # Data from multiple (simulated) experiments
-getExtrFile = function() system.file('extdata', 'phaseRefTimes.csv', package = 'tipa')
-getStimFile = function() system.file('extdata', 'stimOnsets.csv', package = 'tipa')
+getExtrFile = function() {
+  system.file('extdata', 'phaseRefTimes.csv', package = 'tipa')}
+getStimFile = function() {
+  system.file('extdata', 'stimOnsets.csv', package = 'tipa')}
 
 extrDf = read.csv(getExtrFile(), stringsAsFactors = FALSE)
 stimDf = read.csv(getStimFile(), stringsAsFactors = FALSE)
 
 resultList = lapply(stimDf$expId, function(ii) {
-	phaseRefTimes = extrDf$phaseRefTime[extrDf$expId == ii]
-	stimOnset = stimDf$stimOnset[stimDf$expId == ii]
-   tipaPhaseRef(phaseRefTimes, stimOnset)
-})
+  phaseRefTimes = extrDf$phaseRefTime[extrDf$expId == ii]
+  stimOnset = stimDf$stimOnset[stimDf$expId == ii]
+  tipaPhaseRef(phaseRefTimes, stimOnset)})
 
 phaseShifts = sapply(resultList, function(r) r$phaseShift)
 
@@ -59,5 +60,5 @@ write.csv(data.frame(expId = stimDf$expId, phaseShift = phaseShifts),
           'tipa_phaseref.csv', quote = FALSE, row.names = FALSE)
 }
 \seealso{
-\verb{[tipaCosinor()]}
+\code{\link[=tipaCosinor]{tipaCosinor()}}
 }
