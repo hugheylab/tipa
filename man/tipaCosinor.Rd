@@ -2,8 +2,8 @@
 % Please edit documentation in R/tipa.R
 \name{tipaCosinor}
 \alias{tipaCosinor}
-\title{Calculate the phase shift induced by a stimulus during a circadian
-time-course.}
+\title{Use cosinor regression to estimate the phase shift induced by a stimulus
+during a circadian time-course.}
 \usage{
 tipaCosinor(
   time,

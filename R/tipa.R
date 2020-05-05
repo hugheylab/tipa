@@ -17,8 +17,8 @@ tipaPeriod = function(phaseRefTimes, stimOnset=0, stimDuration=0) {
   return(list(pre = periodPre, post = periodPost))}
 
 
-#' Calculate the phase shift induced by a stimulus during a circadian
-#' time-course.
+#' Use phase reference points to estimate the phase shift induced by a stimulus
+#' during a circadian time-course.
 #'
 #' Calculate the phase shift based on the times of a phase reference point
 #' (e.g., onset of activity), accounting for possible period changes and for the
@@ -94,8 +94,8 @@ fitCosinor = function(time, y, periodGuess = 24, trend = TRUE) {
   data.frame(period = period, phaseRad = phaseRad, rmsError = rmsError)}
 
 
-#' Calculate the phase shift induced by a stimulus during a circadian
-#' time-course.
+#' Use cosinor regression to estimate the phase shift induced by a stimulus
+#' during a circadian time-course.
 #'
 #' Calculate the phase shift based on fitting sine curves to waveform data
 #' before and after the stimulus, accounting for possible period changes and for

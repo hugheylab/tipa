@@ -2,8 +2,8 @@
 % Please edit documentation in R/tipa.R
 \name{tipaPhaseRef}
 \alias{tipaPhaseRef}
-\title{Calculate the phase shift induced by a stimulus during a circadian
-time-course.}
+\title{Use phase reference points to estimate the phase shift induced by a stimulus
+during a circadian time-course.}
 \usage{
 tipaPhaseRef(phaseRefTimes, stimOnset, stimDuration = 0, period = NULL)
 }
