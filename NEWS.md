@@ -1,3 +1,3 @@
-# tipa 1.0.0
-
-* Added a `NEWS.md` file to track changes to the package.
+# tipa 1.0.3
+* Added `pkgdown` site.
+* Updated documentation.

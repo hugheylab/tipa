@@ -42,13 +42,13 @@ time-course. — tipaCosinor • tipa</title>
 
 <meta property="og:title" content="Calculate the phase shift induced by a stimulus during a circadian
 time-course. — tipaCosinor" />
-<meta property="og:description" content="tipaCosinor calculates the phase shift based on fitting sine curves to
-waveform data before and after the stimulus, accounting for possible period
-changes and for the point in the circadian cycle at which the stimulus
-occurred. This function will work best for measurements whose rhythms are
-approximately sinusoidal, or at least smoothly increasing and decreasing. If
-your data are not sinusoidal, you can first define the phase reference points
-and then use tipaPhaseRef." />
+<meta property="og:description" content="Calculate the phase shift based on fitting sine curves to waveform data
+before and after the stimulus, accounting for possible period changes and for
+the point in the circadian cycle at which the stimulus occurred. This
+function will work best for measurements whose rhythms are approximately
+sinusoidal, or at least smoothly increasing and decreasing. If your data are
+not sinusoidal, you can first define the phase reference points and then use
+tipaPhaseRef()." />
 
 
 
@@ -80,7 +80,7 @@ and then use tipaPhaseRef." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tipa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.3</span>
       </span>
     </div>
 
@@ -91,9 +91,6 @@ and then use tipaPhaseRef." />
     <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
-</li>
-<li>
-  <a href="../articles/tipa.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -129,17 +126,24 @@ time-course.</h1>
     </div>
 
     <div class="ref-description">
-    <p><code>tipaCosinor</code> calculates the phase shift based on fitting sine curves to
-waveform data before and after the stimulus, accounting for possible period
-changes and for the point in the circadian cycle at which the stimulus
-occurred. This function will work best for measurements whose rhythms are
-approximately sinusoidal, or at least smoothly increasing and decreasing. If
-your data are not sinusoidal, you can first define the phase reference points
-and then use <code><a href='tipaPhaseRef.html'>tipaPhaseRef</a></code>.</p>
+    <p>Calculate the phase shift based on fitting sine curves to waveform data
+before and after the stimulus, accounting for possible period changes and for
+the point in the circadian cycle at which the stimulus occurred. This
+function will work best for measurements whose rhythms are approximately
+sinusoidal, or at least smoothly increasing and decreasing. If your data are
+not sinusoidal, you can first define the phase reference points and then use
+<code><a href='tipaPhaseRef.html'>tipaPhaseRef()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tipaCosinor</span>(<span class='no'>time</span>, <span class='no'>y</span>, <span class='no'>stimOnset</span>, <span class='kw'>stimDuration</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>periodGuess</span> <span class='kw'>=</span> <span class='fl'>24</span>,
-  <span class='kw'>trend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>shortcut</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>tipaCosinor</span>(
+  <span class='no'>time</span>,
+  <span class='no'>y</span>,
+  <span class='no'>stimOnset</span>,
+  <span class='kw'>stimDuration</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>periodGuess</span> <span class='kw'>=</span> <span class='fl'>24</span>,
+  <span class='kw'>trend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>shortcut</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,15 +174,15 @@ used in <code>time</code>), used as initial value in fitting the sine curves.</p
     <tr>
       <th>trend</th>
       <td><p>Model a long-term trend in the cosinor fit for each epoch. Uses
-a natural cubic spline with 4 degrees of freedom. It is strongly recommended
-to keep as <code>TRUE</code>. If set to <code>FALSE</code>, the function may give an error or give
-completely invalid results.</p></td>
+a natural cubic spline with 4 degrees of freedom. It is strongly
+recommended to keep as <code>TRUE</code>. If set to <code>FALSE</code>, the function may give an
+error or give completely invalid results.</p></td>
     </tr>
     <tr>
       <th>shortcut</th>
       <td><p>Calculate phase shift using the standard TIPA procedure or
-using a shortcut based on the phases of the sine curve fits. The two methods
-give exactly the same result.</p></td>
+using a shortcut based on the phases of the sine curve fits. The two
+methods give exactly the same result.</p></td>
     </tr>
     </table>
 
@@ -188,26 +192,26 @@ give exactly the same result.</p></td>
 <dt>phaseShift</dt><dd><p>Estimated phase shift in circadian hours. Negative values
 correspond to a delay, positive values an advance.</p></dd>
 <dt>epochInfo</dt><dd><p>Dataframe containing information about the sine curve fits
-for each epoch: period (in the same units used in <code>time</code>), phase (in radians),
-and root mean square error (in the same units as <code>y</code>). If the RMS errors
-pre-stimulus and post-stimulus are substantially different, then the stimulus
-may have induced a change in the waveform and thus phase shift estimates may
-be invalid.</p></dd>
+for each epoch: period (in the same units used in <code>time</code>), phase (in
+radians), and root mean square error (in the same units as <code>y</code>). If the RMS
+errors pre-stimulus and post-stimulus are substantially different, then the
+stimulus may have induced a change in the waveform and thus phase shift
+estimates may be invalid.</p></dd>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='tipaPhaseRef.html'>tipaPhaseRef</a></code></p></div>
+    <div class='dont-index'><p><code><a href='tipaPhaseRef.html'>tipaPhaseRef()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Time-course data from multiple (simulated) experiments</span>
-<span class='no'>timecourseFile</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>, <span class='st'>'timecourses.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'tipa'</span>)
-<span class='no'>df</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='no'>timecourseFile</span>, <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>getTimecourseFile</span> <span class='kw'>=</span> <span class='kw'>function</span>() {
+  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>, <span class='st'>'timecourses.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'tipa'</span>)}
+<span class='no'>df</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'>getTimecourseFile</span>(), <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='no'>resultList</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>df</span>$<span class='no'>expId</span>)), <span class='kw'>function</span>(<span class='no'>ii</span>) {
-        <span class='no'>time</span> <span class='kw'>=</span> <span class='no'>df</span>$<span class='no'>time</span>[<span class='no'>df</span>$<span class='no'>expId</span> <span class='kw'>==</span> <span class='no'>ii</span>]
-        <span class='no'>y</span> <span class='kw'>=</span> <span class='no'>df</span>$<span class='no'>intensity</span>[<span class='no'>df</span>$<span class='no'>expId</span> <span class='kw'>==</span> <span class='no'>ii</span>]
-   <span class='fu'>tipaCosinor</span>(<span class='no'>time</span>, <span class='no'>y</span>, <span class='kw'>stimOnset</span> <span class='kw'>=</span> <span class='fl'>0</span>)
-})
+  <span class='no'>time</span> <span class='kw'>=</span> <span class='no'>df</span>$<span class='no'>time</span>[<span class='no'>df</span>$<span class='no'>expId</span> <span class='kw'>==</span> <span class='no'>ii</span>]
+  <span class='no'>y</span> <span class='kw'>=</span> <span class='no'>df</span>$<span class='no'>intensity</span>[<span class='no'>df</span>$<span class='no'>expId</span> <span class='kw'>==</span> <span class='no'>ii</span>]
+  <span class='fu'>tipaCosinor</span>(<span class='no'>time</span>, <span class='no'>y</span>, <span class='kw'>stimOnset</span> <span class='kw'>=</span> <span class='fl'>0</span>)})
 
 <span class='no'>phaseShifts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>resultList</span>, <span class='kw'>function</span>(<span class='no'>r</span>) <span class='no'>r</span>$<span class='no'>phaseShift</span>)
 

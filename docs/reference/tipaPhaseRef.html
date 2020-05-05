@@ -42,11 +42,11 @@ time-course. — tipaPhaseRef • tipa</title>
 
 <meta property="og:title" content="Calculate the phase shift induced by a stimulus during a circadian
 time-course. — tipaPhaseRef" />
-<meta property="og:description" content="tipaPhaseRef calculates the phase shift based on the times of a phase
-reference point (e.g., onset of activity), accounting for possible period
-changes and for the point in the circadian cycle at which the stimulus
-occurred. If the rhythms of the measurement are approximately sinusoidal, it
-is recommended to instead use tipaCosinor." />
+<meta property="og:description" content="Calculate the phase shift based on the times of a phase reference point
+(e.g., onset of activity), accounting for possible period changes and for the
+point in the circadian cycle at which the stimulus occurred. If the rhythms
+of the measurement are approximately sinusoidal, it is recommended to instead
+use tipaCosinor()." />
 
 
 
@@ -78,7 +78,7 @@ is recommended to instead use tipaCosinor." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tipa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.3</span>
       </span>
     </div>
 
@@ -89,9 +89,6 @@ is recommended to instead use tipaCosinor." />
     <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
-</li>
-<li>
-  <a href="../articles/tipa.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -127,11 +124,11 @@ time-course.</h1>
     </div>
 
     <div class="ref-description">
-    <p><code>tipaPhaseRef</code> calculates the phase shift based on the times of a phase
-reference point (e.g., onset of activity), accounting for possible period
-changes and for the point in the circadian cycle at which the stimulus
-occurred. If the rhythms of the measurement are approximately sinusoidal, it
-is recommended to instead use <code><a href='tipaCosinor.html'>tipaCosinor</a></code>.</p>
+    <p>Calculate the phase shift based on the times of a phase reference point
+(e.g., onset of activity), accounting for possible period changes and for the
+point in the circadian cycle at which the stimulus occurred. If the rhythms
+of the measurement are approximately sinusoidal, it is recommended to instead
+use <code><a href='tipaCosinor.html'>tipaCosinor()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>tipaPhaseRef</span>(<span class='no'>phaseRefTimes</span>, <span class='no'>stimOnset</span>, <span class='kw'>stimDuration</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
@@ -167,11 +164,11 @@ respective epoch. It is recommended to not use this argument.</p></td>
     <p>A list.</p>
 <dt>phaseShift</dt><dd><p>Estimated phase shift in circadian hours. Negative values
 indicate a delay, positive values an advance.</p></dd>
-<dt>epochInfo</dt><dd><p>Dataframe containing estimated period for each epoch.</p></dd>
+<dt>epochInfo</dt><dd><p><code>data.frame</code> containing estimated period for each epoch.</p></dd>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='tipaCosinor.html'>tipaCosinor</a></code></p></div>
+    <div class='dont-index'><p><code><a href='tipaCosinor.html'>tipaCosinor()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Peak times of bioluminescence (in hours)</span>
@@ -180,17 +177,18 @@ indicate a delay, positive values an advance.</p></dd>
 <span class='no'>result</span> <span class='kw'>=</span> <span class='fu'>tipaPhaseRef</span>(<span class='no'>phaseRefTimes</span>, <span class='kw'>stimOnset</span> <span class='kw'>=</span> <span class='fl'>0</span>)
 
 <span class='co'># Data from multiple (simulated) experiments</span>
-<span class='no'>extrFile</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>, <span class='st'>'phaseRefTimes.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'tipa'</span>)
-<span class='no'>stimFile</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>, <span class='st'>'stimOnsets.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'tipa'</span>)
+<span class='no'>getExtrFile</span> <span class='kw'>=</span> <span class='kw'>function</span>() {
+  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>, <span class='st'>'phaseRefTimes.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'tipa'</span>)}
+<span class='no'>getStimFile</span> <span class='kw'>=</span> <span class='kw'>function</span>() {
+  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'extdata'</span>, <span class='st'>'stimOnsets.csv'</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>'tipa'</span>)}
 
-<span class='no'>extrDf</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='no'>extrFile</span>, <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>stimDf</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='no'>stimFile</span>, <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>extrDf</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'>getExtrFile</span>(), <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='no'>stimDf</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'>getStimFile</span>(), <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='no'>resultList</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>stimDf</span>$<span class='no'>expId</span>, <span class='kw'>function</span>(<span class='no'>ii</span>) {
-        <span class='no'>phaseRefTimes</span> <span class='kw'>=</span> <span class='no'>extrDf</span>$<span class='no'>phaseRefTime</span>[<span class='no'>extrDf</span>$<span class='no'>expId</span> <span class='kw'>==</span> <span class='no'>ii</span>]
-        <span class='no'>stimOnset</span> <span class='kw'>=</span> <span class='no'>stimDf</span>$<span class='no'>stimOnset</span>[<span class='no'>stimDf</span>$<span class='no'>expId</span> <span class='kw'>==</span> <span class='no'>ii</span>]
-   <span class='fu'>tipaPhaseRef</span>(<span class='no'>phaseRefTimes</span>, <span class='no'>stimOnset</span>)
-})
+  <span class='no'>phaseRefTimes</span> <span class='kw'>=</span> <span class='no'>extrDf</span>$<span class='no'>phaseRefTime</span>[<span class='no'>extrDf</span>$<span class='no'>expId</span> <span class='kw'>==</span> <span class='no'>ii</span>]
+  <span class='no'>stimOnset</span> <span class='kw'>=</span> <span class='no'>stimDf</span>$<span class='no'>stimOnset</span>[<span class='no'>stimDf</span>$<span class='no'>expId</span> <span class='kw'>==</span> <span class='no'>ii</span>]
+  <span class='fu'>tipaPhaseRef</span>(<span class='no'>phaseRefTimes</span>, <span class='no'>stimOnset</span>)})
 
 <span class='no'>phaseShifts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>resultList</span>, <span class='kw'>function</span>(<span class='no'>r</span>) <span class='no'>r</span>$<span class='no'>phaseShift</span>)
 
