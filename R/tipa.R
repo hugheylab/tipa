@@ -17,29 +17,29 @@ tipaPeriod = function(phaseRefTimes, stimOnset=0, stimDuration=0) {
   return(list(pre = periodPre, post = periodPost))}
 
 
-#' Calculate the phase shift induced by a stimulus during a circadian
-#' time-course.
+#' Use phase reference points to estimate the phase shift induced by a stimulus
+#' during a circadian time-course.
 #'
-#' `tipaPhaseRef` calculates the phase shift based on the times of a phase
-#' reference point (e.g., onset of activity), accounting for possible period
-#' changes and for the point in the circadian cycle at which the stimulus
-#' occurred. If the rhythms of the measurement are approximately sinusoidal, it
-#' is recommended to instead use [tipaCosinor()].
+#' Calculate the phase shift based on the times of a phase reference point
+#' (e.g., onset of activity), accounting for possible period changes and for the
+#' point in the circadian cycle at which the stimulus occurred. If the rhythms
+#' of the measurement are approximately sinusoidal, it is recommended to instead
+#' use [tipaCosinor()].
 #'
 #' @param phaseRefTimes Vector of times of the chosen phase reference point.
 #' @param stimOnset Time at which the stimulus started.
 #' @param stimDuration Duration of the stimulus and any transients. Data between
-#' `stimOnset` and `stimOnset + stimDuration` will be ignored.
+#'   `stimOnset` and `stimOnset + stimDuration` will be ignored.
 #' @param period Optional list with elements "pre" and "post" corresponding to
-#' the period of the oscillations prior to and subsequent to the stimulus. If
-#' not supplied, the periods for pre- and post-stimulus are calculated as the
-#' mean time between occurrences of the phase reference point within the
-#' respective epoch. Using this argument is not recommended.
+#'   the period of the oscillations prior to and subsequent to the stimulus. If
+#'   not supplied, the periods for pre- and post-stimulus are calculated as the
+#'   mean time between occurrences of the phase reference point within the
+#'   respective epoch. Using this argument is not recommended.
 #'
 #' @return A list.
 #' \item{phaseShift}{Estimated phase shift in circadian hours. Negative values
-#' indicate a delay, positive values an advance.}
-#' \item{epochInfo}{Dataframe containing estimated period for each epoch.}
+#'   indicate a delay, positive values an advance.}
+#' \item{epochInfo}{`data.frame` containing estimated period for each epoch.}
 #'
 #' @example R/tipa_example_phaseref.R
 #'
@@ -94,42 +94,42 @@ fitCosinor = function(time, y, periodGuess = 24, trend = TRUE) {
   data.frame(period = period, phaseRad = phaseRad, rmsError = rmsError)}
 
 
-#' Calculate the phase shift induced by a stimulus during a circadian
-#' time-course.
+#' Use cosinor regression to estimate the phase shift induced by a stimulus
+#' during a circadian time-course.
 #'
-#' `tipaCosinor` calculates the phase shift based on fitting sine curves to
-#' waveform data before and after the stimulus, accounting for possible period
-#' changes and for the point in the circadian cycle at which the stimulus
-#' occurred. This function will work best for measurements whose rhythms are
-#' approximately sinusoidal, or at least smoothly increasing and decreasing. If
-#' your data are not sinusoidal, you can first define the phase reference points
-#' and then use [tipaPhaseRef()].
+#' Calculate the phase shift based on fitting sine curves to waveform data
+#' before and after the stimulus, accounting for possible period changes and for
+#' the point in the circadian cycle at which the stimulus occurred. This
+#' function will work best for measurements whose rhythms are approximately
+#' sinusoidal, or at least smoothly increasing and decreasing. If your data are
+#' not sinusoidal, you can first define the phase reference points and then use
+#' [tipaPhaseRef()].
 #'
 #' @param time Vector of time values for the full time-course.
 #' @param y Vector of measurements (e.g., bioluminescence) for the full
-#' time-course.
+#'   time-course.
 #' @param stimOnset Time at which the stimulus started.
 #' @param stimDuration Duration of the stimulus and any transients. Data between
-#' `stimOnset` and `stimOnset + stimDuration` will be ignored.
+#'   `stimOnset` and `stimOnset + stimDuration` will be ignored.
 #' @param periodGuess Approximate period of the oscillations (in the same units
-#' used in `time`), used as initial value in fitting the sine curves.
+#'   used in `time`), used as initial value in fitting the sine curves.
 #' @param trend Model a long-term trend in the cosinor fit for each epoch. Uses
-#' a natural cubic spline with 4 degrees of freedom. It is strongly recommended
-#' to keep as `TRUE`. If set to `FALSE`, the function may give an error or give
-#' completely invalid results.
+#'   a natural cubic spline with 4 degrees of freedom. It is strongly
+#'   recommended to keep as `TRUE`. If set to `FALSE`, the function may give an
+#'   error or give completely invalid results.
 #' @param shortcut Calculate phase shift using the standard TIPA procedure or
-#' using a shortcut based on the phases of the sine curve fits. The two methods
-#' give exactly the same result.
+#'   using a shortcut based on the phases of the sine curve fits. The two
+#'   methods give exactly the same result.
 #'
 #' @return A list.
 #' \item{phaseShift}{Estimated phase shift in circadian hours. Negative values
-#' correspond to a delay, positive values an advance.}
+#'   correspond to a delay, positive values an advance.}
 #' \item{epochInfo}{Dataframe containing information about the sine curve fits
-#' for each epoch: period (in the same units used in `time`), phase (in radians),
-#' and root mean square error (in the same units as `y`). If the RMS errors
-#' pre-stimulus and post-stimulus are substantially different, then the stimulus
-#' may have induced a change in the waveform and thus phase shift estimates may
-#' be invalid.}
+#'   for each epoch: period (in the same units used in `time`), phase (in
+#'   radians), and root mean square error (in the same units as `y`). If the RMS
+#'   errors pre-stimulus and post-stimulus are substantially different, then the
+#'   stimulus may have induced a change in the waveform and thus phase shift
+#'   estimates may be invalid.}
 #'
 #' @example R/tipa_example_cosinor.R
 #'

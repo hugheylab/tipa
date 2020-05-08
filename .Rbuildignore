@@ -4,3 +4,5 @@
 ^tipa_phaseref\.csv$
 ^tipa_simulations\.R$
 ^readme\.md$
+^_pkgdown\.yml$
+^docs$

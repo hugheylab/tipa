@@ -2,8 +2,8 @@
 % Please edit documentation in R/tipa.R
 \name{tipaPhaseRef}
 \alias{tipaPhaseRef}
-\title{Calculate the phase shift induced by a stimulus during a circadian
-time-course.}
+\title{Use phase reference points to estimate the phase shift induced by a stimulus
+during a circadian time-course.}
 \usage{
 tipaPhaseRef(phaseRefTimes, stimOnset, stimDuration = 0, period = NULL)
 }
@@ -25,14 +25,14 @@ respective epoch. Using this argument is not recommended.}
 A list.
 \item{phaseShift}{Estimated phase shift in circadian hours. Negative values
 indicate a delay, positive values an advance.}
-\item{epochInfo}{Dataframe containing estimated period for each epoch.}
+\item{epochInfo}{\code{data.frame} containing estimated period for each epoch.}
 }
 \description{
-\code{tipaPhaseRef} calculates the phase shift based on the times of a phase
-reference point (e.g., onset of activity), accounting for possible period
-changes and for the point in the circadian cycle at which the stimulus
-occurred. If the rhythms of the measurement are approximately sinusoidal, it
-is recommended to instead use \code{\link[=tipaCosinor]{tipaCosinor()}}.
+Calculate the phase shift based on the times of a phase reference point
+(e.g., onset of activity), accounting for possible period changes and for the
+point in the circadian cycle at which the stimulus occurred. If the rhythms
+of the measurement are approximately sinusoidal, it is recommended to instead
+use \code{\link[=tipaCosinor]{tipaCosinor()}}.
 }
 \examples{
 # Peak times of bioluminescence (in hours)

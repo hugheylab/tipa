@@ -2,8 +2,8 @@
 % Please edit documentation in R/tipa.R
 \name{tipaCosinor}
 \alias{tipaCosinor}
-\title{Calculate the phase shift induced by a stimulus during a circadian
-time-course.}
+\title{Use cosinor regression to estimate the phase shift induced by a stimulus
+during a circadian time-course.}
 \usage{
 tipaCosinor(
   time,
@@ -30,33 +30,33 @@ time-course.}
 used in \code{time}), used as initial value in fitting the sine curves.}
 
 \item{trend}{Model a long-term trend in the cosinor fit for each epoch. Uses
-a natural cubic spline with 4 degrees of freedom. It is strongly recommended
-to keep as \code{TRUE}. If set to \code{FALSE}, the function may give an error or give
-completely invalid results.}
+a natural cubic spline with 4 degrees of freedom. It is strongly
+recommended to keep as \code{TRUE}. If set to \code{FALSE}, the function may give an
+error or give completely invalid results.}
 
 \item{shortcut}{Calculate phase shift using the standard TIPA procedure or
-using a shortcut based on the phases of the sine curve fits. The two methods
-give exactly the same result.}
+using a shortcut based on the phases of the sine curve fits. The two
+methods give exactly the same result.}
 }
 \value{
 A list.
 \item{phaseShift}{Estimated phase shift in circadian hours. Negative values
 correspond to a delay, positive values an advance.}
 \item{epochInfo}{Dataframe containing information about the sine curve fits
-for each epoch: period (in the same units used in \code{time}), phase (in radians),
-and root mean square error (in the same units as \code{y}). If the RMS errors
-pre-stimulus and post-stimulus are substantially different, then the stimulus
-may have induced a change in the waveform and thus phase shift estimates may
-be invalid.}
+for each epoch: period (in the same units used in \code{time}), phase (in
+radians), and root mean square error (in the same units as \code{y}). If the RMS
+errors pre-stimulus and post-stimulus are substantially different, then the
+stimulus may have induced a change in the waveform and thus phase shift
+estimates may be invalid.}
 }
 \description{
-\code{tipaCosinor} calculates the phase shift based on fitting sine curves to
-waveform data before and after the stimulus, accounting for possible period
-changes and for the point in the circadian cycle at which the stimulus
-occurred. This function will work best for measurements whose rhythms are
-approximately sinusoidal, or at least smoothly increasing and decreasing. If
-your data are not sinusoidal, you can first define the phase reference points
-and then use \code{\link[=tipaPhaseRef]{tipaPhaseRef()}}.
+Calculate the phase shift based on fitting sine curves to waveform data
+before and after the stimulus, accounting for possible period changes and for
+the point in the circadian cycle at which the stimulus occurred. This
+function will work best for measurements whose rhythms are approximately
+sinusoidal, or at least smoothly increasing and decreasing. If your data are
+not sinusoidal, you can first define the phase reference points and then use
+\code{\link[=tipaPhaseRef]{tipaPhaseRef()}}.
 }
 \examples{
 # Time-course data from multiple (simulated) experiments
