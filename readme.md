@@ -4,7 +4,7 @@
 
 For details about the method and to see how we benchmarked it using simulations, check out [Tackenberg et al. (2018)](https://doi.org/10.1177/0748730418768116) and the [accompanying results](https://doi.org/10.6084/m9.figshare.5484916).
 
-## Installation
+## Installation 
 
 First add the hugheylab repository to your repos. There are multiple ways to do this.
 
