@@ -40,4 +40,4 @@ docker pull hugheylab/hugheyverse
 
 ## Usage
 
-See the examples and detailed guidance in the [reference documentation](reference/index.html).
+See the examples and detailed guidance in the [reference documentation](https://tipa.hugheylab.org/reference/index.html).
