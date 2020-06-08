@@ -109,8 +109,7 @@ jobs:
 
               if [ "$DEPLOYTARBALL" = true ]; then
                 echo "Deploying."
-                git clone https://github.com/hugheylab/drat;
-                cd drat;
+                cd ../drat;
                 git config --global user.email "jakejhughey@gmail.com";
                 git config --global user.name "Jake Hughey";
                 Rscript -e "install.packages('drat');";
