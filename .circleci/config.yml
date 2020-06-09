@@ -72,7 +72,7 @@ jobs:
                 mkdir ../tmpDir2
                 tar xvzf "../drat/src/contrib/${PKG_TARBALL}" -C ../tmpDir2/
 
-                echo "Checking for previous MD5 hash file."
+                echo "Checking for previous MD5 file."
                 MD5FILE="../tmpDir2/${PKG_NAME}/MD5"
 
                 if test -f "$MD5FILE"
