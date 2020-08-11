@@ -78,7 +78,7 @@ use tipaCosinor()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tipa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
       </span>
     </div>
 
@@ -155,7 +155,7 @@ use <code><a href='tipaCosinor.html'>tipaCosinor()</a></code>.</p>
 the period of the oscillations prior to and subsequent to the stimulus. If
 not supplied, the periods for pre- and post-stimulus are calculated as the
 mean time between occurrences of the phase reference point within the
-respective epoch. It is recommended to not use this argument.</p></td>
+respective epoch. Using this argument is not recommended.</p></td>
     </tr>
     </table>
 
@@ -193,7 +193,7 @@ indicate a delay, positive values an advance.</p></dd>
 <span class='no'>phaseShifts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>resultList</span>, <span class='kw'>function</span>(<span class='no'>r</span>) <span class='no'>r</span>$<span class='no'>phaseShift</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/utils/write.table.html'>write.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>expId</span> <span class='kw'>=</span> <span class='no'>stimDf</span>$<span class='no'>expId</span>, <span class='kw'>phaseShift</span> <span class='kw'>=</span> <span class='no'>phaseShifts</span>),
-          <span class='st'>'tipa_phaseref.csv'</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div></pre>
+          <span class='st'>'tipa_phaseref.csv'</span>, <span class='kw'>quote</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>row.names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)<span class='co'>#</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -57,7 +57,8 @@ resultList = lapply(stimDf$expId, function(ii) {
 phaseShifts = sapply(resultList, function(r) r$phaseShift)
 
 write.csv(data.frame(expId = stimDf$expId, phaseShift = phaseShifts),
-          'tipa_phaseref.csv', quote = FALSE, row.names = FALSE)
+          'tipa_phaseref.csv', quote = FALSE, row.names = FALSE)#
+
 }
 \seealso{
 \code{\link[=tipaCosinor]{tipaCosinor()}}

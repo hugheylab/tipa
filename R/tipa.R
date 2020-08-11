@@ -41,7 +41,30 @@ tipaPeriod = function(phaseRefTimes, stimOnset=0, stimDuration=0) {
 #'   indicate a delay, positive values an advance.}
 #' \item{epochInfo}{`data.frame` containing estimated period for each epoch.}
 #'
-#' @example R/tipa_example_phaseref.R
+#' @examples
+#' # Peak times of bioluminescence (in hours)
+#' phaseRefTimes = c(-75.5, -51.5, -27.4, -3.8,
+#'                   20.5, 42.4, 65.5, 88.0)
+#' result = tipaPhaseRef(phaseRefTimes, stimOnset = 0)
+#'
+#' # Data from multiple (simulated) experiments
+#' getExtrFile = function() {
+#'   system.file('extdata', 'phaseRefTimes.csv', package = 'tipa')}
+#' getStimFile = function() {
+#'   system.file('extdata', 'stimOnsets.csv', package = 'tipa')}
+#'
+#' extrDf = read.csv(getExtrFile(), stringsAsFactors = FALSE)
+#' stimDf = read.csv(getStimFile(), stringsAsFactors = FALSE)
+#'
+#' resultList = lapply(stimDf$expId, function(ii) {
+#'   phaseRefTimes = extrDf$phaseRefTime[extrDf$expId == ii]
+#'   stimOnset = stimDf$stimOnset[stimDf$expId == ii]
+#'   tipaPhaseRef(phaseRefTimes, stimOnset)})
+#'
+#' phaseShifts = sapply(resultList, function(r) r$phaseShift)
+#'
+#' write.csv(data.frame(expId = stimDf$expId, phaseShift = phaseShifts),
+#'           'tipa_phaseref.csv', quote = FALSE, row.names = FALSE)#
 #'
 #' @seealso [tipaCosinor()]
 #'
@@ -131,7 +154,21 @@ fitCosinor = function(time, y, periodGuess = 24, trend = TRUE) {
 #'   stimulus may have induced a change in the waveform and thus phase shift
 #'   estimates may be invalid.}
 #'
-#' @example R/tipa_example_cosinor.R
+#' @examples
+#' # Time-course data from multiple (simulated) experiments
+#' getTimecourseFile = function() {
+#'   system.file('extdata', 'timecourses.csv', package = 'tipa')}
+#' df = read.csv(getTimecourseFile(), stringsAsFactors = FALSE)
+#'
+#' resultList = lapply(sort(unique(df$expId)), function(ii) {
+#'   time = df$time[df$expId == ii]
+#'   y = df$intensity[df$expId == ii]
+#'   tipaCosinor(time, y, stimOnset = 0)})
+#'
+#' phaseShifts = sapply(resultList, function(r) r$phaseShift)
+#'
+#' write.csv(data.frame(expId = sort(unique(df$expId)), phaseShift = phaseShifts),
+#'           'tipa_cosinor.csv', quote = FALSE, row.names = FALSE)
 #'
 #' @seealso [tipaPhaseRef()]
 #'
