@@ -35,20 +35,20 @@ jobs:
           command: R CMD check ${PKG_TARBALL} --no-manual
 
       - run:
-          name: Check failures
+          name: Check coverage percentage
           command: |
             Rscript \
-              -e "message(devtools::check_failures(path = '${PKG_NAME}.Rcheck'))" \
               -e "covr::package_coverage()"
 
-      - run:
-          name: Calculate code coverage
-          command: r -e 'tryCatch(covr::codecov(), error = function(e) warning(e))'
+      # Uncomment the following lines once the codecov project is set up to send coverage reports to codecov
+      #- run:
+      #    name: Calculate code coverage
+      #    command: r -e 'tryCatch(covr::codecov(), error = function(e) warning(e))'
 
       - run:
           name: Deploy to drat
           command: |
-            if [ "${CIRCLE_BRANCH}" = "master" ]
+            if [ "${CIRCLE_BRANCH}" = "master" ] || [ "${CIRCLE_BRANCH}" = "main" ]
             then
               echo "In master branch."
               git clone https://github.com/hugheylab/drat
@@ -122,7 +122,7 @@ jobs:
                 echo "No tarball of current version exists on drat repo, deploying."
               fi
 
-              if [ "$DEPLOYTARBALL" = true ]
+              if [ "$DEPLOYTARBALL" = true ] && false
               then
                 echo "Deploying."
                 cd ../drat
