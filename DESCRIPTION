@@ -15,6 +15,7 @@ Depends: R (>= 3.4)
 Imports:
   optimr (>= 2016-8.16)
 Suggests: 
+  covr,
   knitr,
   rmarkdown
 VignetteBuilder: knitr
