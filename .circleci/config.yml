@@ -37,9 +37,9 @@ jobs:
           
       # When using codecov, change below line to run "covr::codecov(quiet = FALSE)"
       - run:
-          name: Calculate code coverage
+          name: Run tests and calculate code coverage
           command: |
-            Rscript  -e "covr::package_coverage()"
+            Rscript -e 'covr::package_coverage()'
 
       - run:
           name: Deploy to drat
