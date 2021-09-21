@@ -32,12 +32,6 @@ if (!requireNamespace('BiocManager', quietly = TRUE))
 BiocManager::install('tipa', site_repository = 'https://hugheylab.github.io/drat/')
 ```
 
-There's also a [docker image](https://hub.docker.com/r/hugheylab/hugheyverse), which has all dependencies installed.
-
-```bash
-docker pull hugheylab/hugheyverse
-```
-
 ## Usage
 
 See the examples and detailed guidance in the [reference documentation](https://tipa.hugheylab.org/reference/index.html).
