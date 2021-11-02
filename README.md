@@ -1,6 +1,6 @@
 # tipa
 
-[![check-coverage-deploy](https://github.com/hugheylab/tipa/workflows/check-coverage-deploy/badge.svg)](https://github.com/hugheylab/tipa/actions)
+[![check-deploy](https://github.com/hugheylab/tipa/workflows/check-deploy/badge.svg)](https://github.com/hugheylab/tipa/actions)
 [![codecov](https://codecov.io/gh/hugheylab/tipa/branch/master/graph/badge.svg)](https://codecov.io/gh/hugheylab/tipa)
 
 `tipa` accurately calculates phase shifts in circadian time-course data. `tipa` accounts for period changes and for the point in the circadian cycle at which the stimulus occurs.
