@@ -2,6 +2,7 @@
 
 [![check-deploy](https://github.com/hugheylab/tipa/workflows/check-deploy/badge.svg)](https://github.com/hugheylab/tipa/actions)
 [![codecov](https://codecov.io/gh/hugheylab/tipa/branch/master/graph/badge.svg)](https://codecov.io/gh/hugheylab/tipa)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0c6262a3-b9f8-4478-a7b1-8f0ef78786b1/deploy-status)](https://app.netlify.com/sites/stoic-sinoussi-75a610/deploys)
 
 `tipa` accurately calculates phase shifts in circadian time-course data. `tipa` accounts for period changes and for the point in the circadian cycle at which the stimulus occurs.
 
@@ -9,28 +10,29 @@ For details about the method and to see how we benchmarked it using simulations,
 
 ## Installation
 
-If you use RStudio, go to Tools -> Global Options... -> Packages -> Add... (under Secondary repositories), then enter:
+1. Install [`BiocManager`](https://cran.r-project.org/package=BiocManager).
 
-- Name: hugheylab
-- Url: https://hugheylab.github.io/drat/
+    ```r
+    if (!requireNamespace('BiocManager', quietly = TRUE))
+      install.packages('BiocManager')
+    ```
 
-You only have to do this once. Then you can install or update the package by entering:
+1. If you use RStudio, go to Tools → Global Options... → Packages → Add... (under Secondary repositories), then enter:
 
-```R
-if (!requireNamespace('BiocManager', quietly = TRUE))
-  install.packages('BiocManager')
+    - Name: hugheylab
+    - Url: https://hugheylab.github.io/drat/
 
-BiocManager::install('tipa')
-```
+    You only have to do this once. Then you can install or update the package by entering:
 
-Alternatively, you can install or update the package by entering:
+    ```r
+    BiocManager::install('tipa')
+    ```
 
-```R
-if (!requireNamespace('BiocManager', quietly = TRUE))
-  install.packages('BiocManager')
+    Alternatively, you can install or update the package by entering:
 
-BiocManager::install('tipa', site_repository = 'https://hugheylab.github.io/drat/')
-```
+    ```r
+    BiocManager::install('tipa', site_repository = 'https://hugheylab.github.io/drat/')
+    ```
 
 ## Usage
 

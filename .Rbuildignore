@@ -1,11 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^tipa_cosinor\.csv$
-^tipa_phaseref\.csv$
-^tipa_simulations\.R$
-^readme\.md$
+^README\.md$
 ^_pkgdown\.yml$
 ^docs$
 ^\.circleci$
 ^NEWS\.md$
 ^\.github$
+^data-raw$

@@ -71,9 +71,6 @@ resultList = lapply(sort(unique(df$expId)), function(ii) {
 
 phaseShifts = sapply(resultList, function(r) r$phaseShift)
 
-write.csv(data.frame(expId = sort(unique(df$expId)), phaseShift = phaseShifts),
-          'tipa_cosinor.csv', quote = FALSE, row.names = FALSE)
-
 }
 \seealso{
 \code{\link[=tipaPhaseRef]{tipaPhaseRef()}}

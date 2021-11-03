@@ -63,9 +63,6 @@ tipaPeriod = function(phaseRefTimes, stimOnset=0, stimDuration=0) {
 #'
 #' phaseShifts = sapply(resultList, function(r) r$phaseShift)
 #'
-#' write.csv(data.frame(expId = stimDf$expId, phaseShift = phaseShifts),
-#'           'tipa_phaseref.csv', quote = FALSE, row.names = FALSE)#
-#'
 #' @seealso [tipaCosinor()]
 #'
 #' @export
@@ -166,9 +163,6 @@ fitCosinor = function(time, y, periodGuess = 24, trend = TRUE) {
 #'   tipaCosinor(time, y, stimOnset = 0)})
 #'
 #' phaseShifts = sapply(resultList, function(r) r$phaseShift)
-#'
-#' write.csv(data.frame(expId = sort(unique(df$expId)), phaseShift = phaseShifts),
-#'           'tipa_cosinor.csv', quote = FALSE, row.names = FALSE)
 #'
 #' @seealso [tipaPhaseRef()]
 #'
