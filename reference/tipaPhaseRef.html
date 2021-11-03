@@ -78,7 +78,7 @@ use tipaCosinor()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tipa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.5</span>
       </span>
     </div>
 
@@ -191,9 +191,6 @@ indicate a delay, positive values an advance.</p></dd>
 <span class='r-in'>  <span class='fu'>tipaPhaseRef</span><span class='op'>(</span><span class='va'>phaseRefTimes</span>, <span class='va'>stimOnset</span><span class='op'>)</span><span class='op'>}</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='va'>phaseShifts</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>resultList</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span> <span class='va'>r</span><span class='op'>$</span><span class='va'>phaseShift</span><span class='op'>)</span></span>
-<span class='r-in'></span>
-<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/write.table.html'>write.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>expId <span class='op'>=</span> <span class='va'>stimDf</span><span class='op'>$</span><span class='va'>expId</span>, phaseShift <span class='op'>=</span> <span class='va'>phaseShifts</span><span class='op'>)</span>,</span>
-<span class='r-in'>          <span class='st'>'tipa_phaseref.csv'</span>, quote <span class='op'>=</span> <span class='cn'>FALSE</span>, row.names <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span><span class='co'>#</span></span>
 <span class='r-in'></span>
 </pre>
   </div>
