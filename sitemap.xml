@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://tipa.hugheylab.org/404.html</loc>
+  </url>
+  <url>
+    <loc>https://tipa.hugheylab.org/authors.html</loc>
+  </url>
+  <url>
     <loc>https://tipa.hugheylab.org/index.html</loc>
+  </url>
+  <url>
+    <loc>https://tipa.hugheylab.org/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://tipa.hugheylab.org/reference/index.html</loc>
   </url>
   <url>
     <loc>https://tipa.hugheylab.org/reference/tipaCosinor.html</loc>
