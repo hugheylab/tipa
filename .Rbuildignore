@@ -3,7 +3,6 @@
 ^README\.md$
 ^_pkgdown\.yml$
 ^docs$
-^\.circleci$
-^NEWS\.md$
 ^\.github$
 ^data-raw$
+^cran-comments\.md$
