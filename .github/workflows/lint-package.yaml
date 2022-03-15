@@ -1,0 +1,11 @@
+on: push
+
+name: check-deploy
+
+jobs:
+  lint-package:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.JAKEJH_PAT }}
+    steps:
+      - uses: hugheylab/actions/lint-package@main
