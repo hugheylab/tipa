@@ -60,10 +60,7 @@ jobs:
     permissions:
       contents: read
       issues: write
-    inputs:
-      style_text:
-        value: ${{ fromJson(needs.check_version_number.outputs.matrix) }}
-    name: Create issue for packages ${{ matrix.value }}
+    name: Create issue for lintr errors.
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     if: ${{ fromJson(needs.check_version_number.outputs.has_style_issues) }}
@@ -76,6 +73,6 @@ jobs:
           github_token: ${{ secrets.github_token }}
           title: Linter found styling inconsistencies.
           body: |
-            ${{ inputs.style_text }}
+            ${{ fromJson(needs.lint_package.outputs.style_text) }}
           labels: |
             lint-styling
