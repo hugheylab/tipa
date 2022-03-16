@@ -38,7 +38,7 @@ newDefaults = with_defaults(double_quotes_linter = double_quotes_linter,
 lintsFound = lint_package(linters = newDefaults)
 lfDt = as.data.table(lintsFound)
 lfDt[, lint_link := paste0('https://github.com/hugheylab/', repository, '/blob/', branch, '/', filename, '#L', line_number)]
-setorder(lfDt, cols = c('filename', 'line_number'))
+setorder(lfDt, filename, line_number)
 lfDt[, format_line :=
        paste0('- ', filename, ' line ', line_number, ': ',
               message, ' (', lint_link, ')')]
