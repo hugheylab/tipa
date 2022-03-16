@@ -10,8 +10,8 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.JAKEJH_PAT }}
     outputs:
-        style_text: ${{ steps.get_packages.outputs.style_text }}
-        has_style_issues: ${{ steps.get_packages.outputs.has_style_issues }}
+        style_text: ${{ steps.run_lintr.outputs.style_text }}
+        has_style_issues: ${{ steps.run_lintr.outputs.has_style_issues }}
     steps:
       - uses: actions/checkout@v2
 
@@ -19,7 +19,7 @@ jobs:
         with:
           use-public-rspm: true
 
-      - name: Run lint on the package
+      - id: run_lintr
         run: |
           install.packages('lintr')
           install.packages('data.table')
