@@ -43,6 +43,6 @@ lfDt[, format_line :=
        paste0('- ', filename, ' line ', line_number, ': ',
               message, ' (', lint_link, ')')]
 
-issueStr = paste0(lfDt$format_line, collapse = ' \|')
+issueStr = paste0(lfDt$format_line, collapse = ' \\r\\n')
 
 s = sprintf("echo '::set-output name=style_text::%s'", issueStr)
