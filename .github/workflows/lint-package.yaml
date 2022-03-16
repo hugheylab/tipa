@@ -73,6 +73,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: debug output
+        run: |
+          ${{ needs.lint_package.outputs.style_text }}
+        shell: bash
+
       - name: Create an issue
         uses: actions-ecosystem/action-create-issue@v1
         with:
