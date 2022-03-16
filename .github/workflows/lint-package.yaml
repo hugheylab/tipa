@@ -80,5 +80,7 @@ jobs:
           title: Linter found styling inconsistencies.
           body: |
             ${{ needs.lint_package.outputs.style_text }}
+            abcd
+            aass
           labels: |
             lint-styling
