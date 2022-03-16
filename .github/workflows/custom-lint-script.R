@@ -42,7 +42,8 @@ setorder(lfDt, filename, line_number)
 lfDt[, format_line :=
        paste0('- ', filename, ' line ', line_number, ': ',
               message, ' (', lint_link, ')')]
-
+# %0D = \r and %0A = \n
+# Needs different formatting for bash output
 issueStr = paste0(lfDt$format_line, collapse = ' %0D%0A')
 
 s = sprintf("echo '::set-output name=style_text::%s'", issueStr)
