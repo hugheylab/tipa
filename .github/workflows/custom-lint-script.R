@@ -1,3 +1,7 @@
+library('data.table')
+library('lintr')
+library('rex')
+
 double_quotes_linter <- function(source_file) {
   content <- source_file$full_parsed_content
   str_idx <- which(content$token == "STR_CONST")
