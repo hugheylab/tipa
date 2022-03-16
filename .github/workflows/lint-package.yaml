@@ -60,6 +60,23 @@ jobs:
           done
         shell: bash
 
+  set_badge:
+    needs: [ lint_package ]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    name: Add error for badge if style issues are present
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    if: ${{ fromJson(needs.lint_package.outputs.has_style_issues) }}
+    steps:
+      - name: Throw error
+        uses: actions/github-script@v3
+        with:
+          script: |
+              core.setFailed('Style issues are present, set badge status to failing!')
+
   create_issue:
     needs: [ lint_package, close_open_lint ]
     runs-on: ubuntu-latest
