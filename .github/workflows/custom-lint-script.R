@@ -42,4 +42,5 @@ setorder(lfDt, filename, line_number)
 lfDt[, format_line :=
        paste0('- ', filename, ' line ', line_number, ': ',
               message, ' (', lint_link, ')')]
+
 issueStr = paste0(lfDt$format_line, collapse = ' \n')
