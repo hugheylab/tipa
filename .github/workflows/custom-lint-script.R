@@ -2,9 +2,6 @@ library('data.table')
 library('lintr')
 library('rex')
 
-repository = 'tipa'
-branch = 'master'
-
 double_quotes_linter <- function(source_file) {
   content <- source_file$full_parsed_content
   str_idx <- which(content$token == "STR_CONST")
@@ -32,13 +29,21 @@ double_quotes_linter <- function(source_file) {
     }
   )
 }
-new_defaults = with_defaults(double_quotes_linter = double_quotes_linter,
-                             line_length_linter(120),
-                             assignment_linter = NULL,
-                             closed_curly_linter = NULL,
-                             object_name_linter = object_name_linter('camelCase'),
-                             single_quotes_linter = NULL)
-lintsFound = lint_package(linters = new_defaults)
+newDefaults = with_defaults(double_quotes_linter = double_quotes_linter,
+                            line_length_linter(120),
+                            assignment_linter = NULL,
+                            closed_curly_linter = NULL,
+                            object_name_linter = object_name_linter('camelCase'),
+                            single_quotes_linter = NULL)
+lintsFound = lint_package(linters = newDefaults)
 lfDt = as.data.table(lintsFound)
 lfDt[, lint_link := paste0('https://github.com/hugheylab/', repository, '/blob/', branch, '/', filename, '#L', line_number)]
+setorder(lfDt, filename, line_number)
+lfDt[, format_line :=
+       paste0('- ', filename, ' line ', line_number, ': ',
+              message, ' (', lint_link, ')')]
+# %0D = \r and %0A = \n
+# Needs different formatting for bash output
+issueStr = paste0(lfDt$format_line, collapse = ' %0D%0A')
 
+s = sprintf("echo '::set-output name=style_text::%s'", issueStr)
