@@ -69,7 +69,7 @@ jobs:
     name: Create issue for lintr errors.
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    if: ${{ fromJson(needs.check_version_number.outputs.has_style_issues) }}
+    if: ${{ fromJson(needs.lint_package.outputs.has_style_issues) }}
     steps:
       - uses: actions/checkout@v2
 
