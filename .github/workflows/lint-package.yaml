@@ -75,7 +75,7 @@ jobs:
 
       - name: debug output
         run: |
-          ${{ needs.lint_package.outputs.style_text }}
+          echo "${{ needs.lint_package.outputs.style_text }}"
         shell: bash
 
       - name: Create an issue
