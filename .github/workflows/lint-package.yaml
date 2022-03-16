@@ -55,7 +55,7 @@ jobs:
         shell: bash
 
   create_issue:
-    needs: [ lint-package, close_open_lint ]
+    needs: [ lint_package, close_open_lint ]
     runs-on: ubuntu-latest
     permissions:
       contents: read
