@@ -1,7 +1,7 @@
 circMean = function(a, period = 1, naRm = TRUE, forcePos = FALSE) {
   x = cos(a / period * 2 * pi)
   y = sin(a / period * 2 * pi)
-  m = atan2(sum(y, na.rm = naRm), sum(x, na.rm = naRmm)) / 2 / pi
+  m = atan2(sum(y, na.rm = naRm), sum(x, na.rm = naRm)) / 2 / pi
   if (forcePos) {
     m = ifelse(m < 0, m + 1, m) * period
   } else {
