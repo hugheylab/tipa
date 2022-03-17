@@ -44,8 +44,6 @@ setorder(lfDt, filename, line_number)
 # Needs different formatting for bash output
 newlineEsc = ' %0D%0A'
 
-lfDt = unique.d
-
 lfDt[, format_line :=
        paste0('- ', filename, ' line ', line_number, ': ', message, ' (',
               lint_link, ')', newlineEsc, '```', newlineEsc, line, newlineEsc, '```')]
