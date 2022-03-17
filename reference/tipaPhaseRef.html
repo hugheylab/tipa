@@ -23,7 +23,7 @@ use tipaCosinor()."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tipa</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.6</span>
       </span>
     </div>
 
@@ -103,6 +103,7 @@ indicate a delay, positive values an advance.</p></dd>
 <span class="r-in"><span class="va">phaseRefTimes</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">75.5</span>, <span class="op">-</span><span class="fl">51.5</span>, <span class="op">-</span><span class="fl">27.4</span>, <span class="op">-</span><span class="fl">3.8</span>,</span>
 <span class="r-in">                  <span class="fl">20.5</span>, <span class="fl">42.4</span>, <span class="fl">65.5</span>, <span class="fl">88.0</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">result</span> <span class="op">=</span> <span class="fu">tipaPhaseRef</span><span class="op">(</span><span class="va">phaseRefTimes</span>, stimOnset <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in circMean(tPostResid, period = period$post):</span> object 'naRmm' not found</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Data from multiple (simulated) experiments</span></span>
 <span class="r-in"><span class="va">getExtrFile</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
@@ -117,8 +118,10 @@ indicate a delay, positive values an advance.</p></dd>
 <span class="r-in">  <span class="va">phaseRefTimes</span> <span class="op">=</span> <span class="va">extrDf</span><span class="op">$</span><span class="va">phaseRefTime</span><span class="op">[</span><span class="va">extrDf</span><span class="op">$</span><span class="va">expId</span> <span class="op">==</span> <span class="va">ii</span><span class="op">]</span></span>
 <span class="r-in">  <span class="va">stimOnset</span> <span class="op">=</span> <span class="va">stimDf</span><span class="op">$</span><span class="va">stimOnset</span><span class="op">[</span><span class="va">stimDf</span><span class="op">$</span><span class="va">expId</span> <span class="op">==</span> <span class="va">ii</span><span class="op">]</span></span>
 <span class="r-in">  <span class="fu">tipaPhaseRef</span><span class="op">(</span><span class="va">phaseRefTimes</span>, <span class="va">stimOnset</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in circMean(tPostResid, period = period$post):</span> object 'naRmm' not found</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">phaseShifts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">resultList</span>, <span class="kw">function</span><span class="op">(</span><span class="va">r</span><span class="op">)</span> <span class="va">r</span><span class="op">$</span><span class="va">phaseShift</span><span class="op">)</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in lapply(X = X, FUN = FUN, ...):</span> object 'resultList' not found</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
