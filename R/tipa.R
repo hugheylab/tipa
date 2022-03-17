@@ -1,7 +1,7 @@
-circMean = function(a, period = 1, na.rm = TRUE, forcePos = FALSE) {
+circMean = function(a, period = 1, naRm = TRUE, forcePos = FALSE) {
   x = cos(a / period * 2 * pi)
   y = sin(a / period * 2 * pi)
-  m = atan2(sum(y, na.rm = na.rm), sum(x, na.rm = na.rm)) / 2 / pi
+  m = atan2(sum(y, na.rm = naRm), sum(x, na.rm = naRmm)) / 2 / pi
   if (forcePos) {
     m = ifelse(m < 0, m + 1, m) * period
   } else {
@@ -77,7 +77,7 @@ tipaPhaseRef = function(phaseRefTimes, stimOnset, stimDuration = 0, period = NUL
   fracCycleRem = 1 - (stimAnchor - tPreLast) / period$pre
 
   tPost = phaseRefTimes[phaseRefTimes > stimOnset + stimDuration]
-  tPostExpect = stimAnchor + period$post * (fracCycleRem + 0:(length(tPost)-1))
+  tPostExpect = stimAnchor + period$post * (fracCycleRem + 0:(length(tPost) - 1))
   tPostResid = tPostExpect - tPost
 
   phaseShift = circMean(tPostResid, period = period$post) * 24 / period$post
@@ -87,8 +87,8 @@ tipaPhaseRef = function(phaseRefTimes, stimOnset, stimDuration = 0, period = NUL
 
 
 cosinor = function(time, y, per, trend) {
-  df = data.frame(y = y, time = time, timeCos = cos(2*pi*time/per),
-                  timeSin = sin(2*pi*time/per))
+  df = data.frame(y = y, time = time, timeCos = cos(2 * pi * time / per),
+                  timeSin = sin(2 * pi * time / per))
   if (trend) {
     fit = stats::lm(y ~ timeCos + timeSin + splines::ns(time, df = 4), data = df)
   } else {
@@ -191,7 +191,7 @@ tipaCosinor = function(time, y, stimOnset, stimDuration = 0, periodGuess = 24,
     fracCycleRem = 1 - (stimOnset - tPreLast) / fitPre$period
 
     # find first peak time after stimOffset
-    tPostObs = stats::optimize(function(tt) -cos(tt * 2 * pi/fitPost$period - fitPost$phaseRad),
+    tPostObs = stats::optimize(function(tt) -cos(tt * 2 * pi / fitPost$period - fitPost$phaseRad),
                                interval = c(stimOffset, stimOffset + fitPost$period * 1.1))$minimum
 
     # find expected time of first fit peak after stimOnset
