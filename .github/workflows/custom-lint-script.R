@@ -36,14 +36,19 @@ newDefaults = with_defaults(double_quotes_linter = double_quotes_linter,
                             object_name_linter = object_name_linter('camelCase'),
                             single_quotes_linter = NULL)
 lintsFound = lint_package(linters = newDefaults)
-lfDt = as.data.table(lintsFound)
+lfDt = unique(as.data.table(lintsFound), by = c('filename', 'line_number', 'message'))
 lfDt[, lint_link := paste0('https://github.com/hugheylab/', repository, '/blob/', branch, '/', filename, '#L', line_number)]
 setorder(lfDt, filename, line_number)
-lfDt[, format_line :=
-       paste0('- ', filename, ' line ', line_number, ': ',
-              message, ' (', lint_link, ')')]
+
 # %0D = \r and %0A = \n
 # Needs different formatting for bash output
-issueStr = paste0(lfDt$format_line, collapse = ' %0D%0A')
+newlineEsc = ' %0D%0A'
+
+lfDt = unique.d
+
+lfDt[, format_line :=
+       paste0('- ', filename, ' line ', line_number, ': ', message, ' (',
+              lint_link, ')', newlineEsc, '```', newlineEsc, line, newlineEsc, '```')]
+issueStr = paste0(lfDt$format_line, collapse = newlineEsc)
 
 s = sprintf("echo '::set-output name=style_text::%s'", issueStr)
