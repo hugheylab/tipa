@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/gh/hugheylab/tipa/branch/master/graph/badge.svg)](https://codecov.io/gh/hugheylab/tipa)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/0c6262a3-b9f8-4478-a7b1-8f0ef78786b1/deploy-status)](https://app.netlify.com/sites/stoic-sinoussi-75a610/deploys)
 [![CRAN Status](https://www.r-pkg.org/badges/version/tipa)](https://cran.r-project.org/package=tipa)
+[![drat version](https://raw.githubusercontent.com/hugheylab/drat/gh-pages/badges/tipa_drat_badge.svg)](https://github.com/hugheylab/drat/tree/gh-pages/src/contrib)
 
 `tipa` accurately calculates phase shifts in circadian time-course data. `tipa` accounts for period changes and for the point in the circadian cycle at which the stimulus occurs.
 
