@@ -9,7 +9,7 @@ circMean = function(a, period = 1, naRm = TRUE, forcePos = FALSE) {
   return(m)}
 
 
-tipaPeriod = function(phaseRefTimes, stimOnset=0, stimDuration=0) {
+tipaPeriod = function(phaseRefTimes, stimOnset = 0, stimDuration = 0) {
   tPre = phaseRefTimes[phaseRefTimes < stimOnset]
   periodPre = (max(tPre) - min(tPre)) / (length(tPre) - 1)
   tPost = phaseRefTimes[phaseRefTimes > stimOnset + stimDuration]

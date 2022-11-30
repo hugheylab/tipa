@@ -1,3 +1,6 @@
+# tipa 1.0.7
+* Fixed code style issue caught by lintr.
+
 # tipa 1.0.6
 * Fixed syntax to adhere to lab code style.
 
