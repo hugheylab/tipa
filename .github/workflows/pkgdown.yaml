@@ -11,4 +11,4 @@ name: pkgdown
 
 jobs:
   pkgdown:
-    uses: hugheylab/actions/.github/workflows/pkgdown.yaml
+    uses: hugheylab/actions/.github/workflows/pkgdown.yaml@main
