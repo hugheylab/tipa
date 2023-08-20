@@ -103,9 +103,9 @@ cosinorCost = function(time, y, per, trend) {
 
 
 fitCosinor = function(time, y, periodGuess = 24, trend = TRUE) {
-  optimFit = optimr::optimr(c(p = periodGuess),
-                            fn = function(p) cosinorCost(time, y, p, trend),
-                            lower = 0, method = 'L-BFGS-B')
+  optimFit = optimx::optimr(
+    c(p = periodGuess), fn = function(p) cosinorCost(time, y, p, trend),
+    lower = 0, method = 'L-BFGS-B')
   period = optimFit$par[['p']]
   cosinorFit = cosinor(time, y, period, trend)
   rmsError = sqrt(cosinorCost(time, y, period, trend))
@@ -167,14 +167,17 @@ fitCosinor = function(time, y, periodGuess = 24, trend = TRUE) {
 #' @seealso [tipaPhaseRef()]
 #'
 #' @export
-tipaCosinor = function(time, y, stimOnset, stimDuration = 0, periodGuess = 24,
-                       trend = TRUE, shortcut = TRUE) {
+tipaCosinor = function(
+    time, y, stimOnset, stimDuration = 0, periodGuess = 24, trend = TRUE,
+    shortcut = TRUE) {
   stimOffset = stimOnset + stimDuration
 
-  fitPre = fitCosinor(time[time < stimOnset], y[time < stimOnset], periodGuess, trend)
+  fitPre = fitCosinor(
+    time[time < stimOnset], y[time < stimOnset], periodGuess, trend)
   fitPre = data.frame(epoch = 'pre', fitPre, stringsAsFactors = FALSE)
 
-  fitPost = fitCosinor(time[time > stimOffset], y[time > stimOffset], periodGuess, trend)
+  fitPost = fitCosinor(
+    time[time > stimOffset], y[time > stimOffset], periodGuess, trend)
   fitPost = data.frame(epoch = 'post', fitPost, stringsAsFactors = FALSE)
 
   if (shortcut) {
@@ -182,8 +185,9 @@ tipaCosinor = function(time, y, stimOnset, stimDuration = 0, periodGuess = 24,
     phaseShift = phaseShift - 24 * (phaseShift > 12) + 24 * (phaseShift < (-12))
   } else {
     # find last peak time before stimOnset
-    tPreLast = stats::optimize(function(tt) -cos(tt * 2 * pi / fitPre$period - fitPre$phaseRad),
-                               interval = c(stimOnset - fitPre$period * 1.1, stimOnset))$minimum
+    tPreLast = stats::optimize(
+      function(tt) -cos(tt * 2 * pi / fitPre$period - fitPre$phaseRad),
+      interval = c(stimOnset - fitPre$period * 1.1, stimOnset))$minimum
     if (tPreLast + fitPre$period < stimOnset) {
       tPreLast = tPreLast + fitPre$period}
 
@@ -191,8 +195,9 @@ tipaCosinor = function(time, y, stimOnset, stimDuration = 0, periodGuess = 24,
     fracCycleRem = 1 - (stimOnset - tPreLast) / fitPre$period
 
     # find first peak time after stimOffset
-    tPostObs = stats::optimize(function(tt) -cos(tt * 2 * pi / fitPost$period - fitPost$phaseRad),
-                               interval = c(stimOffset, stimOffset + fitPost$period * 1.1))$minimum
+    tPostObs = stats::optimize(
+      function(tt) -cos(tt * 2 * pi / fitPost$period - fitPost$phaseRad),
+      interval = c(stimOffset, stimOffset + fitPost$period * 1.1))$minimum
 
     # find expected time of first fit peak after stimOnset
     # (ok even if non-zero transients)

@@ -1,3 +1,6 @@
+# tipa 1.0.8
+* Switched from optimr to optimx.
+
 # tipa 1.0.7
 * Fixed code style issue caught by lintr.
 
