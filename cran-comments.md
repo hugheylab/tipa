@@ -1,29 +1,37 @@
 ## R CMD check results
 
-### Local check
-`devtools::check()` result:
+### Local
+
+`devtools::check()`:
 
   0 errors ✓ | 0 warnings ✓ | 0 notes ✓
 
-### Online check
-`devtools::check_rhub()` result:
+### R-hub
 
-  > checking CRAN incoming feasibility ... NOTE
-  Maintainer: 'Jake Hughey <jakejhughey@gmail.com>'
+`devtools::check_rhub()`:
 
-  New submission
+  0 errors ✓ | 0 warnings ✓ | 2 notes ✓
 
-  > checking for detritus in the temp directory ... NOTE
-  Found the following files/directories:
-    'lastMiKTeXException'
+```
+* checking CRAN incoming feasibility ... [7s/16s] NOTE
+Maintainer: ‘Jake Hughey <jakejhughey@gmail.com>’
 
-  0 errors ✓ | 0 warnings ✓ | 2 notes x
+Possibly misspelled words in DESCRIPTION:
+  al (8:21)
+  et (8:18)
+  Tackenberg (8:7)
+* checking HTML version of manual ... NOTE
+Skipping checking HTML validation: no command 'tidy' found
+```
 
-Notes:
-  - This is the first time this package is being submitted to CRAN, so ignore this note.
-  - The second note only occurs on the Windows Server rhub environment, and from what I have seen about these types of notes they do not occur when building and checking on CRAN.
+See results for [Windows](https://builder.r-hub.io/status/tipa_1.0.8.tar.gz-90c36d6e64374ae58df2d3ae857da56c), [Ubuntu](https://builder.r-hub.io/status/tipa_1.0.8.tar.gz-4dcddeb172784305a1f8d3cfb42a20ef), and [Fedora](https://builder.r-hub.io/status/tipa_1.0.8.tar.gz-88b440981be94fd4bcc0b9ecd50917e8).
 
-You can also see the results of R CMD check on Windows, Linux, and MacOS by going to the GitHub Actions run labeled `check-deploy` [here](https://github.com/hugheylab/tipa/actions).
+### GitHub Actions
 
-## Downstream dependencies
-There are no downstream dependencies for tipa.
+  0 errors ✓ | 0 warnings ✓ | 0 notes ✓
+
+See results for Mac, Windows, and Ubuntu [here](https://github.com/hugheylab/tipa/actions/runs/5919858803).
+
+## Changes from current CRAN release
+
+* Switched from using optimr package to optimx, as requested.
